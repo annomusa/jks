@@ -1,0 +1,8 @@
+1. Official Docs
+http://www.raspberrypi.org/documentation/
+
+2. raspbian autologin
+http://elinux.org/RPi_Debian_Auto_Login
+
+3. autostart browser in lxde
+http://www.raspberry-projects.com/pi/pi-operating-systems/raspbian/gui/auto-run-browser-on-startup
