@@ -15,8 +15,10 @@ class UserIdentity extends CUserIdentity
 	 * against some persistent user identity storage (e.g. database).
 	 * @return boolean whether authentication succeeds.
 	 */
+	private $_id;
 	public function authenticate()
 	{
+		/*
 		$users=array(
 			// username => password
 			'demo'=>'demo',
@@ -29,5 +31,29 @@ class UserIdentity extends CUserIdentity
 		else
 			$this->errorCode=self::ERROR_NONE;
 		return !$this->errorCode;
+		*/
+
+		$username = strtolower($this->username);
+		 $user = Admin::model()->find('LOWER(username)=?', array($username));
+		 
+		 if($user===null)
+		   $this->errorCode=self::ERROR_USERNAME_INVALID;
+		 
+		 else if($user->PASSWORD != ($this->password))
+		   $this->errorCode = self::ERROR_PASSWORD_INVALID;
+		 
+		 else{
+		   // successful login
+		   $this->_id = $user->ID_ADMIN;
+		   $this->username = $user->USERNAME;
+		   //$this->setState('level', $user->level);
+		   //untuk memanggil level di database menggunakan EWebUser.php nanti
+		   $this->errorCode = self::ERROR_NONE;
+		 }
+		 return $this->errorCode == self::ERROR_NONE;
+	}
+	public function getId()
+	{
+		return $this->_id;
 	}
 }

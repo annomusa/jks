@@ -1,0 +1,156 @@
+2015/08/26 15:14:20 [error] [exception.CException] exception 'CException' with message 'Property "Admin.username" is not defined.' in C:\xampp2\htdocs\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp2\htdocs\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('username')
+#1 C:\xampp2\htdocs\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('username')
+#2 C:\xampp2\htdocs\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(Admin), 'username')
+#3 C:\xampp2\htdocs\yii\framework\web\helpers\CHtml.php(1533): CHtml::activeInputField('text', Object(Admin), 'username', Array)
+#4 C:\xampp2\htdocs\yii\framework\web\widgets\CActiveForm.php(792): CHtml::activeTextField(Object(Admin), 'username', Array)
+#5 C:\xampp2\htdocs\jks\protected\views\site\login.php(29): CActiveForm->textField(Object(Admin), 'username')
+#6 C:\xampp2\htdocs\yii\framework\web\CBaseController.php(126): require('C:\\xampp2\\htdoc...')
+#7 C:\xampp2\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp2\\htdoc...', Array, true)
+#8 C:\xampp2\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp2\\htdoc...', Array, true)
+#9 C:\xampp2\htdocs\yii\framework\web\CController.php(782): CController->renderPartial('login', Array, true)
+#10 C:\xampp2\htdocs\jks\protected\controllers\SiteController.php(98): CController->render('login', Array)
+#11 C:\xampp2\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#12 C:\xampp2\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#13 C:\xampp2\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#14 C:\xampp2\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('login')
+#16 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#17 C:\xampp2\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#18 C:\xampp2\htdocs\jks\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/jks/index.php?r=site/login
+HTTP_REFERER=http://localhost/jks/index.php?r=site/login
+---
+2015/08/26 15:15:15 [error] [exception.CException] exception 'CException' with message 'Property "Admin.rememberMe" is not defined.' in C:\xampp2\htdocs\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp2\htdocs\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('rememberMe')
+#1 C:\xampp2\htdocs\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('rememberMe')
+#2 C:\xampp2\htdocs\yii\framework\web\helpers\CHtml.php(1922): CHtml::resolveValue(Object(Admin), 'rememberMe')
+#3 C:\xampp2\htdocs\yii\framework\web\widgets\CActiveForm.php(898): CHtml::activeCheckBox(Object(Admin), 'rememberMe', Array)
+#4 C:\xampp2\htdocs\jks\protected\views\site\login.php(43): CActiveForm->checkBox(Object(Admin), 'rememberMe')
+#5 C:\xampp2\htdocs\yii\framework\web\CBaseController.php(126): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp2\\htdoc...', Array, true)
+#7 C:\xampp2\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp2\\htdoc...', Array, true)
+#8 C:\xampp2\htdocs\yii\framework\web\CController.php(782): CController->renderPartial('login', Array, true)
+#9 C:\xampp2\htdocs\jks\protected\controllers\SiteController.php(98): CController->render('login', Array)
+#10 C:\xampp2\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#11 C:\xampp2\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#12 C:\xampp2\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#13 C:\xampp2\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('login')
+#15 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#16 C:\xampp2\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#17 C:\xampp2\htdocs\jks\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/jks/index.php?r=site/login
+HTTP_REFERER=http://localhost/jks/index.php?r=site/login
+---
+2015/08/26 15:15:32 [error] [exception.CException] exception 'CException' with message 'Property "Admin.rememberMe" is not defined.' in C:\xampp2\htdocs\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp2\htdocs\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('rememberMe')
+#1 C:\xampp2\htdocs\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('rememberMe')
+#2 C:\xampp2\htdocs\yii\framework\web\helpers\CHtml.php(1922): CHtml::resolveValue(Object(Admin), 'rememberMe')
+#3 C:\xampp2\htdocs\yii\framework\web\widgets\CActiveForm.php(898): CHtml::activeCheckBox(Object(Admin), 'rememberMe', Array)
+#4 C:\xampp2\htdocs\jks\protected\views\site\login.php(43): CActiveForm->checkBox(Object(Admin), 'rememberMe')
+#5 C:\xampp2\htdocs\yii\framework\web\CBaseController.php(126): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp2\\htdoc...', Array, true)
+#7 C:\xampp2\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp2\\htdoc...', Array, true)
+#8 C:\xampp2\htdocs\yii\framework\web\CController.php(782): CController->renderPartial('login', Array, true)
+#9 C:\xampp2\htdocs\jks\protected\controllers\SiteController.php(98): CController->render('login', Array)
+#10 C:\xampp2\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#11 C:\xampp2\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#12 C:\xampp2\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#13 C:\xampp2\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('login')
+#15 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#16 C:\xampp2\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#17 C:\xampp2\htdocs\jks\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/jks/index.php?r=site/login
+HTTP_REFERER=http://localhost/jks/index.php?r=site/login
+---
+2015/08/26 15:41:17 [error] [exception.CException] exception 'CException' with message 'Property "Admin.password" is not defined.' in C:\xampp2\htdocs\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp2\htdocs\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('password')
+#1 C:\xampp2\htdocs\jks\protected\components\UserIdentity.php(42): CActiveRecord->__get('password')
+#2 C:\xampp2\htdocs\jks\protected\models\LoginForm.php(52): UserIdentity->authenticate()
+#3 C:\xampp2\htdocs\yii\framework\validators\CInlineValidator.php(42): LoginForm->authenticate('password', Array)
+#4 C:\xampp2\htdocs\yii\framework\validators\CValidator.php(201): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#5 C:\xampp2\htdocs\yii\framework\base\CModel.php(159): CValidator->validate(Object(LoginForm), NULL)
+#6 C:\xampp2\htdocs\jks\protected\controllers\SiteController.php(94): CModel->validate()
+#7 C:\xampp2\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#8 C:\xampp2\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\xampp2\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#10 C:\xampp2\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('login')
+#12 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#13 C:\xampp2\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\xampp2\htdocs\jks\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/jks/index.php?r=site/login
+HTTP_REFERER=http://localhost/jks/index.php?r=site/login
+---
+2015/08/26 15:42:50 [error] [exception.CException] exception 'CException' with message 'Property "UserIdentity.PASSWORD" is not defined.' in C:\xampp2\htdocs\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp2\htdocs\jks\protected\components\UserIdentity.php(42): CComponent->__get('PASSWORD')
+#1 C:\xampp2\htdocs\jks\protected\models\LoginForm.php(52): UserIdentity->authenticate()
+#2 C:\xampp2\htdocs\yii\framework\validators\CInlineValidator.php(42): LoginForm->authenticate('password', Array)
+#3 C:\xampp2\htdocs\yii\framework\validators\CValidator.php(201): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#4 C:\xampp2\htdocs\yii\framework\base\CModel.php(159): CValidator->validate(Object(LoginForm), NULL)
+#5 C:\xampp2\htdocs\jks\protected\controllers\SiteController.php(94): CModel->validate()
+#6 C:\xampp2\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#7 C:\xampp2\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\xampp2\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\xampp2\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('login')
+#11 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#12 C:\xampp2\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#13 C:\xampp2\htdocs\jks\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/jks/index.php?r=site/login
+HTTP_REFERER=http://localhost/jks/index.php?r=site/login
+---
+2015/08/26 15:43:04 [error] [exception.CException] exception 'CException' with message 'Property "Admin.username" is not defined.' in C:\xampp2\htdocs\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp2\htdocs\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('username')
+#1 C:\xampp2\htdocs\jks\protected\components\UserIdentity.php(48): CActiveRecord->__get('username')
+#2 C:\xampp2\htdocs\jks\protected\models\LoginForm.php(52): UserIdentity->authenticate()
+#3 C:\xampp2\htdocs\yii\framework\validators\CInlineValidator.php(42): LoginForm->authenticate('password', Array)
+#4 C:\xampp2\htdocs\yii\framework\validators\CValidator.php(201): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#5 C:\xampp2\htdocs\yii\framework\base\CModel.php(159): CValidator->validate(Object(LoginForm), NULL)
+#6 C:\xampp2\htdocs\jks\protected\controllers\SiteController.php(94): CModel->validate()
+#7 C:\xampp2\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#8 C:\xampp2\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\xampp2\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#10 C:\xampp2\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('login')
+#12 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#13 C:\xampp2\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\xampp2\htdocs\jks\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/jks/index.php?r=site/login
+HTTP_REFERER=http://localhost/jks/index.php?r=site/login
+---
+2015/08/26 15:44:59 [error] [exception.CException] exception 'CException' with message 'Property "Admin.username" is not defined.' in C:\xampp2\htdocs\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp2\htdocs\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('username')
+#1 C:\xampp2\htdocs\jks\protected\components\UserIdentity.php(48): CActiveRecord->__get('username')
+#2 C:\xampp2\htdocs\jks\protected\models\LoginForm.php(52): UserIdentity->authenticate()
+#3 C:\xampp2\htdocs\yii\framework\validators\CInlineValidator.php(42): LoginForm->authenticate('password', Array)
+#4 C:\xampp2\htdocs\yii\framework\validators\CValidator.php(201): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#5 C:\xampp2\htdocs\yii\framework\base\CModel.php(159): CValidator->validate(Object(LoginForm), NULL)
+#6 C:\xampp2\htdocs\jks\protected\controllers\SiteController.php(94): CModel->validate()
+#7 C:\xampp2\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionLogin()
+#8 C:\xampp2\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\xampp2\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#10 C:\xampp2\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('login')
+#12 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#13 C:\xampp2\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#14 C:\xampp2\htdocs\jks\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/jks/index.php?r=site/login
+HTTP_REFERER=http://localhost/jks/index.php?r=site/login
+---
