@@ -51,14 +51,14 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'ID_KENDARAAN',
 		'TGL_PERJALANAN',
 		'NO_SURAT_PO',
-		/*
+		
 		'JENIS_PERINTAH',
 		'RITASE',
 		'TITIPAN_AWAL',
 		'LEBIH',
 		'KURANG',
 		'AKHIR',
-		*/
+		'STATUS',
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -40,13 +40,14 @@ class Perjalanan extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, TGL_PERJALANAN, NO_SURAT_PO', 'required'),
+			array('ID_PENERBIT, ID_KENDARAAN, TGL_PERJALANAN, NO_SURAT_PO', 'required'),
 			array('ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, TITIPAN_AWAL, LEBIH, KURANG, AKHIR', 'numerical', 'integerOnly'=>true),
 			array('NO_SURAT_PO, JENIS_PERINTAH', 'length', 'max'=>20),
 			array('RITASE', 'length', 'max'=>25),
+			array('STATUS', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_PERJALANAN, ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, TGL_PERJALANAN, NO_SURAT_PO, JENIS_PERINTAH, RITASE, TITIPAN_AWAL, LEBIH, KURANG, AKHIR', 'safe', 'on'=>'search'),
+			array('ID_PERJALANAN, ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, TGL_PERJALANAN, NO_SURAT_PO, JENIS_PERINTAH, RITASE, TITIPAN_AWAL, LEBIH, KURANG, AKHIR, STATUS', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,7 +60,7 @@ class Perjalanan extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'iDPENERBIT' => array(self::BELONGS_TO, 'Penerbit', 'ID_PENERBIT'),
-			'iDONGKOS' => array(self::BELONGS_TO, 'Ongkos', 'ID_ONGKOS'),
+			//'iDONGKOS' => array(self::BELONGS_TO, 'Ongkos', 'ID_ONGKOS'),
 			'iDKENDARAAN' => array(self::BELONGS_TO, 'Kendaraan', 'ID_KENDARAAN'),
 		);
 	}

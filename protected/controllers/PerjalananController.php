@@ -32,7 +32,7 @@ class PerjalananController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','Pilihpenerbit','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -84,6 +84,11 @@ class PerjalananController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
+
+	public function actionPilihpenerbit($idp)
+	{
+
+	}
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
