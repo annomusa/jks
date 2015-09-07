@@ -32,7 +32,7 @@ class OngkosController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','insert'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -60,7 +60,7 @@ class OngkosController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($id)
 	{
 		$model=new Ongkos;
 
@@ -75,7 +75,7 @@ class OngkosController extends Controller
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'model'=>$model, 'message'=>$id
 		));
 	}
 
@@ -115,6 +115,20 @@ class OngkosController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+	public function actionInsert($id, $perj)
+	{
+		$isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_po')->where('ID_PERJALANAN=:ID_PERJALANAN AND ID_ONGKOS=:ID_ONGKOS',array(':ID_PERJALANAN'=>$perj, ':ID_ONGKOS'=>$id))->queryScalar();
+		$idrel = Yii::app()->db->createCommand()->select('ID_RELASI_PO')->from('relasi_po')->where('ID_PERJALANAN=:ID_PERJALANAN AND ID_ONGKOS=:ID_ONGKOS',array(':ID_PERJALANAN'=>$perj, ':ID_ONGKOS'=>$id))->queryScalar();
+		if($isi==0)
+		{
+			Yii::app()->db->createCommand()->insert('relasi_po',array('ID_PERJALANAN'=>$perj, 'ID_ONGKOS'=>$id));
+		}
+		else if($isi>0)
+		{
+			RelasiPo::model()->updateByPk($idrel,array('ID_PERJALANAN'=>$perj, 'ID_ONGKOS'=>$id));
+		}
 	}
 
 	/**

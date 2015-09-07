@@ -13,6 +13,36 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Ongkos</h1>
+<h1>Pilih Ongkos dan Tujuan</h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php
+ $this->widget('bootstrap.widgets.TbGridView', array(
+	'id'=>'ongkos-grid',
+	'type' => TbHtml::GRID_TYPE_HOVER,
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
+
+		array(
+			'header'=>'No',
+			'value'=>'$data->ID_ONGKOS',
+			),
+		array(
+			'header'=>'Satuan',
+			'value'=>'$data->iDSATUAN->SATUAN',
+			),
+		array(
+			'header'=>'Tujuan',
+			'value'=>'$data->TUJUAN'
+			),
+		array(
+			'header'=>'Harga',
+			'value'=>'$data->HARGA'
+			),
+		array(
+				'header'=>'Aksi', 'type'=>'raw', 'value'=>'CHtml::link(\'pilih\', array(\'insert\', \'id\'=>$data->ID_ONGKOS))'
+			)
+	),
+));
+
+ ?>

@@ -28,7 +28,7 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-<h1>Buat PO Perjalanan Baru</h1>
+<h1>Buat PO Perjalanan Baru #<?php echo $model->ID_PERJALANAN ?></h1>
 
 <div class="form">
 
@@ -76,8 +76,6 @@ $('.search-form form').submit(function(){
 				'ifFormat'=>'%Y-%m-%d',
 		)); ?>
 	</div>
-
-	
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'NO_SURAT_PO'); ?>
@@ -128,3 +126,6 @@ $('.search-form form').submit(function(){
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<?php
+	$this->renderPartial('/ongkos/create', array('model'=>Ongkos::model(), "id"=>$model->ID_PERJALANAN));
+?>
