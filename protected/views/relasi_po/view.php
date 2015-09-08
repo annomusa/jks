@@ -7,23 +7,33 @@ $this->breadcrumbs=array(
 	$model->ID_RELASI_PO,
 );
 
-$this->menu=array(
-	array('label'=>'List RelasiPo', 'url'=>array('index')),
-	array('label'=>'Create RelasiPo', 'url'=>array('create')),
-	array('label'=>'Update RelasiPo', 'url'=>array('update', 'id'=>$model->ID_RELASI_PO)),
-	array('label'=>'Delete RelasiPo', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID_RELASI_PO),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage RelasiPo', 'url'=>array('admin')),
-);
+
 ?>
 
-<h1>View RelasiPo #<?php echo $model->ID_RELASI_PO; ?></h1>
+<h1>Daftar Tujuan PO Perjalanan # <?php echo $id ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'ID_RELASI_PO',
-		'ID_PERJALANAN',
-		'ID_ONGKOS',
-		'KETERANGAN',
-	),
-)); ?>
+<?php 
+$this->widget('bootstrap.widgets.TbGridView', array(
+		'id'=>'relasi_po-grid',
+		'type' => TbHtml::GRID_TYPE_HOVER,
+		'dataProvider'=>$model->search2($id),
+		'template' => "{items}\n{pager}",
+		'columns'=>array(
+			array(
+			'header'=>'No',   'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
+			),
+			array(
+				'name'=>'ID Perjalanan', 'value'=>'$data->ID_PERJALANAN'
+				),
+			array(
+				'name'=>'ID Ongkos', 'value'=>'$data->ID_ONGKOS'
+				),
+			array(
+				'name'=>'Tujuan', 'value'=>'$data->iDONGKOS->TUJUAN'
+				),
+			array(
+				'name'=>'Ongkos', 'value'=>'$data->iDONGKOS->HARGA'
+				),
+			),
+		)); 
+?>
