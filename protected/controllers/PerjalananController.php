@@ -32,7 +32,7 @@ class PerjalananController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','Pilihpenerbit','admin'),
+				'actions'=>array('create','create2','create3','update','Pilihpenerbit','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -71,10 +71,48 @@ class PerjalananController extends Controller
 		{
 			$model->attributes=$_POST['Perjalanan'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID_PERJALANAN));
+				$this->redirect(array('create2','id'=>$model->ID_PERJALANAN));
 		}
 
 		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionCreate2($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Perjalanan']))
+		{
+			$model->attributes=$_POST['Perjalanan'];
+			if($model->save())
+				$this->redirect(array('create2','id'=>$model->ID_PERJALANAN));
+		}
+
+		$this->render('create2',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionCreate3($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Perjalanan']))
+		{
+			$model->attributes=$_POST['Perjalanan'];
+			if($model->save())
+				$this->redirect(array('create3','id'=>$model->ID_PERJALANAN));
+		}
+
+		$this->render('create3',array(
 			'model'=>$model,
 		));
 	}

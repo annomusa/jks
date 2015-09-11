@@ -13,7 +13,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Pilih Ongkos dan Tujuan</h1>
+<h1>Pilih Tujuan dan Ongkos</h1>
 
 <?php
  $this->widget('bootstrap.widgets.TbGridView', array(
@@ -40,7 +40,7 @@ $this->menu=array(
 			'value'=>'$data->HARGA'
 			),
 		array(
-				'header'=>'Aksi', 'type'=>'raw', 'value'=>'CHtml::link(\'pilih\', array(\'insert\', \'id\'=>$data->ID_ONGKOS))'
+				'header'=>'Aksi', 'type'=>'raw', 'value'=>'CHtml::link(\'pilih\', array(\'ongkos/insert\', \'id\'=>$data->ID_ONGKOS,\'perj\'=>$_GET[\'id\']))'
 			)
 	),
 ));

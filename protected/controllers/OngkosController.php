@@ -121,14 +121,30 @@ class OngkosController extends Controller
 	{
 		$isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_po')->where('ID_PERJALANAN=:ID_PERJALANAN AND ID_ONGKOS=:ID_ONGKOS',array(':ID_PERJALANAN'=>$perj, ':ID_ONGKOS'=>$id))->queryScalar();
 		$idrel = Yii::app()->db->createCommand()->select('ID_RELASI_PO')->from('relasi_po')->where('ID_PERJALANAN=:ID_PERJALANAN AND ID_ONGKOS=:ID_ONGKOS',array(':ID_PERJALANAN'=>$perj, ':ID_ONGKOS'=>$id))->queryScalar();
+		$ritase = Yii::app()->db->createCommand()->select('RITASE')->from('perjalanan')->where('ID_PERJALANAN=:ID_PERJALANAN',array(':ID_PERJALANAN'=>$perj))->queryScalar();
 		if($isi==0)
 		{
 			Yii::app()->db->createCommand()->insert('relasi_po',array('ID_PERJALANAN'=>$perj, 'ID_ONGKOS'=>$id));
+			$harga = Yii::app()->db->createCommand()->select('HARGA')->from('ongkos')->where('ID_ONGKOS=:ID_ONGKOS',array(':ID_ONGKOS'=>$id))->queryScalar();
+			if($ritase==NULL)
+			{
+				$ritase = $harga;
+			}
+			else if($ritase!=NULL)
+			{
+				$ritase = $ritase+$harga;
+			}
 		}
 		else if($isi>0)
 		{
 			RelasiPo::model()->updateByPk($idrel,array('ID_PERJALANAN'=>$perj, 'ID_ONGKOS'=>$id));
 		}
+
+		Perjalanan::model()->updateByPk($perj,array("RITASE"=>$ritase));
+
+
+
+		$this->redirect(array('perjalanan/create2','id'=>$perj));
 	}
 
 	/**

@@ -41,9 +41,8 @@ class Perjalanan extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID_PENERBIT, ID_KENDARAAN, TGL_PERJALANAN, NO_SURAT_PO', 'required'),
-			array('ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, TITIPAN_AWAL, LEBIH, KURANG, AKHIR', 'numerical', 'integerOnly'=>true),
+			array('ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, RITASE, TITIPAN_AWAL, LEBIH, KURANG, AKHIR', 'numerical', 'integerOnly'=>true),
 			array('NO_SURAT_PO, JENIS_PERINTAH', 'length', 'max'=>20),
-			array('RITASE', 'length', 'max'=>25),
 			array('STATUS', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

@@ -43,6 +43,8 @@ class RelasiPo extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'iDONGKOS' => array(self::BELONGS_TO, 'Ongkos', 'ID_ONGKOS'),
+			'iDPERJALANAN' => array(self::BELONGS_TO, 'Perjalanan', 'ID_PERJALANAN'),
 		);
 	}
 
@@ -81,6 +83,27 @@ class RelasiPo extends CActiveRecord
 		$criteria->compare('ID_PERJALANAN',$this->ID_PERJALANAN);
 		$criteria->compare('ID_ONGKOS',$this->ID_ONGKOS);
 		$criteria->compare('KETERANGAN',$this->KETERANGAN);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	public function search2($id)
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ID_RELASI_PO',$this->ID_RELASI_PO);
+		$criteria->compare('ID_PERJALANAN',$this->ID_PERJALANAN);
+		$criteria->compare('ID_ONGKOS',$this->ID_ONGKOS);
+		$criteria->compare('KETERANGAN',$this->KETERANGAN);
+
+		if(!empty($id))
+		{
+			$criteria->condition = "ID_PERJALANAN='$id'";
+		}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

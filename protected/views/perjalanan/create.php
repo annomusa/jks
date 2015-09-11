@@ -28,7 +28,7 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-<h1>Buat PO Perjalanan Baru #<?php echo $model->ID_PERJALANAN ?></h1>
+<h1>Buat PO Perjalanan Baru - Step 1 : Isi informasi Perjalanan</h1>
 
 <div class="form">
 
@@ -89,43 +89,8 @@ $('.search-form form').submit(function(){
 		<?php echo $form->error($model,'JENIS_PERINTAH'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'RITASE'); ?>
-		<?php echo $form->textField($model,'RITASE',array('size'=>25,'maxlength'=>25)); ?>
-		<?php echo $form->error($model,'RITASE'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'TITIPAN_AWAL'); ?>
-		<?php echo $form->textField($model,'TITIPAN_AWAL'); ?>
-		<?php echo $form->error($model,'TITIPAN_AWAL'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'LEBIH'); ?>
-		<?php echo $form->textField($model,'LEBIH'); ?>
-		<?php echo $form->error($model,'LEBIH'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'KURANG'); ?>
-		<?php echo $form->textField($model,'KURANG'); ?>
-		<?php echo $form->error($model,'KURANG'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'AKHIR'); ?>
-		<?php echo $form->textField($model,'AKHIR'); ?>
-		<?php echo $form->error($model,'AKHIR'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->
-<?php
-	$this->renderPartial('/ongkos/create', array('model'=>Ongkos::model(), "id"=>$model->ID_PERJALANAN));
-?>
