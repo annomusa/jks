@@ -32,7 +32,7 @@ class PengadaanController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create', 'create2', 'create3','update','admin', 'lanjut', 'setuju'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -70,12 +70,50 @@ class PengadaanController extends Controller
 		if(isset($_POST['Pengadaan']))
 		{
 			$model->attributes=$_POST['Pengadaan'];
+			$model->STATUS="BARU";
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID_PENGADAAN));
+				$this->redirect(array('create2','id'=>$model->ID_PENGADAAN));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+		));
+	}
+
+	public function actionCreate2($id)
+	{
+		$model=$this->loadModel($id);
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Pengadaan']))
+		{
+			$model->attributes=$_POST['Pengadaan'];
+			if($model->save())
+				$this->redirect(array('create2','id'=>$model->ID_PENGADAAN));
+		}
+
+		$this->render('create2',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionCreate3($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Perjalanan']))
+		{
+			$model->attributes=$_POST['Perjalanan'];
+			if($model->save())
+				$this->redirect(array('admin'));
+		}
+
+		$this->render('create3',array(
+			'model'=>$model, 'id'=>$id
 		));
 	}
 
@@ -126,6 +164,22 @@ class PengadaanController extends Controller
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+	}
+
+	public function actionLanjut($id)
+	{
+		$model=$this->loadModel($id);
+
+		Pengadaan::model()->updateByPk($id,array("STATUS"=>"PENYETUJUAN KEUANGAN"));
+		$this->redirect(array('create3',"id"=>$id));
+	}
+
+	public function actionSetuju($id)
+	{
+		$model=$this->loadModel($id);
+
+		Pengadaan::model()->updateByPk($id,array("STATUS"=>"DISETUJUI KEUANGAN"));
+		$this->redirect(array('admin'));
 	}
 
 	/**

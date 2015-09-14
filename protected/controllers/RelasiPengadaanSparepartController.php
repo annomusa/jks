@@ -32,7 +32,7 @@ class RelasiPengadaanSparepartController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','isi'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -99,6 +99,41 @@ class RelasiPengadaanSparepartController extends Controller
 		}
 
 		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionIsi($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['RelasiPengadaanSparepart']))
+		{
+			$model->attributes=$_POST['RelasiPengadaanSparepart'];
+			$harga_satuan = Yii::app()->db->createCommand()->select('HARGA_SATUAN')->from('sparepart')->where('ID_SPAREPART=:ID_SPAREPART',array(':ID_SPAREPART'=>$model->ID_SPAREPART))->queryScalar();
+			if($model->save())
+			{
+				$hargasem = $harga_satuan * $model->JUMLAH;
+				RelasiPengadaanSparepart::model()->updateByPk($id,array('HARGA_SEMENTARA'=>$hargasem));
+				$total = Yii::app()->db->createCommand()->select('HARGA_TOTAL')->from('pengadaan')->where('ID_PENGADAAN=:ID_PENGADAAN',array(':ID_PENGADAAN'=>$model->ID_PENGADAAN))->queryScalar();
+				if($total==NULL)
+				{
+					$total = $hargasem;
+				}
+				else if($total!=NULL)
+				{
+					$total = $total+$hargasem;
+				}
+				Pengadaan::model()->updateByPk($model->ID_PENGADAAN,array('HARGA_TOTAL'=>$total));
+				$this->redirect(array('pengadaan/create2','id'=>$model->ID_PENGADAAN));
+			}
+				
+		}
+
+		$this->render('isi',array(
 			'model'=>$model,
 		));
 	}

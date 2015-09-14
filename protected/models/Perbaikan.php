@@ -31,13 +31,13 @@ class Perbaikan extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID_KENDARAAN', 'required'),
+			array('ID_KENDARAAN, TGL_PERBAIKAN, JENIS_PERBAIKAN', 'required'),
 			array('ID_KENDARAAN, ESTIMASI_WAKTU_PERBAIKAN', 'numerical', 'integerOnly'=>true),
-			array('KERUSAKAN', 'length', 'max'=>50),
+			array('KERUSAKAN, JENIS_PERBAIKAN, STATUS', 'length', 'max'=>50),
 			array('TGL_PERBAIKAN', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_PERBAIKAN, ID_KENDARAAN, TGL_PERBAIKAN, KERUSAKAN, ESTIMASI_WAKTU_PERBAIKAN', 'safe', 'on'=>'search'),
+			array('ID_PERBAIKAN, ID_KENDARAAN, TGL_PERBAIKAN, KERUSAKAN, ESTIMASI_WAKTU_PERBAIKAN, JENIS_PERBAIKAN, STATUS', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -90,6 +90,8 @@ class Perbaikan extends CActiveRecord
 		$criteria->compare('TGL_PERBAIKAN',$this->TGL_PERBAIKAN,true);
 		$criteria->compare('KERUSAKAN',$this->KERUSAKAN,true);
 		$criteria->compare('ESTIMASI_WAKTU_PERBAIKAN',$this->ESTIMASI_WAKTU_PERBAIKAN);
+		$criteria->compare('JENIS_PERBAIKAN',$this->JENIS_PERBAIKAN);
+		$criteria->compare('STATUS',$this->STATUS);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

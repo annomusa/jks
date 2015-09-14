@@ -35,12 +35,12 @@ class Pengadaan extends CActiveRecord
 		return array(
 			array('NO_PO', 'required'),
 			array('HARGA_TOTAL', 'numerical', 'integerOnly'=>true),
-			array('NO_PO, PERMINTAAN, NAMA_TOKO', 'length', 'max'=>25),
+			array('NO_PO, PERMINTAAN, NAMA_TOKO, STATUS', 'length', 'max'=>25),
 			array('NO_TLP', 'length', 'max'=>15),
 			array('TGL_PENGADAAN', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_PENGADAAN, NO_PO, TGL_PENGADAAN, PERMINTAAN, HARGA_TOTAL, NAMA_TOKO, NO_TLP', 'safe', 'on'=>'search'),
+			array('ID_PENGADAAN, NO_PO, TGL_PENGADAAN, PERMINTAAN, HARGA_TOTAL, NAMA_TOKO, NO_TLP, STATUS', 'safe', 'on'=>'search'),
 		);
 	}
 

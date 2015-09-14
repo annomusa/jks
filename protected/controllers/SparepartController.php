@@ -32,7 +32,7 @@ class SparepartController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','admin','insert'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -60,7 +60,7 @@ class SparepartController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($id)
 	{
 		$model=new Sparepart;
 
@@ -71,11 +71,11 @@ class SparepartController extends Controller
 		{
 			$model->attributes=$_POST['Sparepart'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID_SPAREPART));
+				$this->redirect(array('pengadaan/create2','id'=>$id));
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'model'=>$model, 'id'=>$id
 		));
 	}
 
@@ -115,6 +115,38 @@ class SparepartController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+	public function actionInsert($id, $peng)
+	{
+		$isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_pengadaan_sparepart')->where('ID_PENGADAAN=:ID_PENGADAAN AND ID_SPAREPART=:ID_SPAREPART',array(':ID_PENGADAAN'=>$peng, ':ID_SPAREPART'=>$id))->queryScalar();
+		$idrel = Yii::app()->db->createCommand()->select('ID_RELASI')->from('relasi_pengadaan_sparepart')->where('ID_PENGADAAN=:ID_PENGADAAN AND ID_SPAREPART=:ID_SPAREPART',array(':ID_PENGADAAN'=>$peng, ':ID_SPAREPART'=>$id))->queryScalar();
+		$total = Yii::app()->db->createCommand()->select('HARGA_TOTAL')->from('pengadaan')->where('ID_PENGADAAN=:ID_PENGADAAN',array(':ID_PENGADAAN'=>$peng))->queryScalar();
+		
+		if($isi==0)
+		{
+			Yii::app()->db->createCommand()->insert('relasi_pengadaan_sparepart',array('ID_PENGADAAN'=>$peng, 'ID_SPAREPART'=>$id));
+			$harga = Yii::app()->db->createCommand()->select('HARGA_SEMENTARA')->from('relasi_pengadaan_sparepart')->where('ID_PENGADAAN=:ID_PENGADAAN',array(':ID_PENGADAAN'=>$peng))->queryScalar();
+			if($total==NULL)
+			{
+				$total = $harga;
+			}
+			else if($total!=NULL)
+			{
+				$total = $total+$harga;
+			}
+			
+		}
+		else if($isi>0)
+		{
+			RelasiPengadaanSparepart::model()->updateByPk($idrel,array('ID_PENGADAAN'=>$peng, 'ID_SPAREPART'=>$id));
+		}
+
+		Pengadaan::model()->updateByPk($peng,array("HARGA_TOTAL"=>$total));
+		
+
+
+		$this->redirect(array('pengadaan/create2','id'=>$peng));
 	}
 
 	/**

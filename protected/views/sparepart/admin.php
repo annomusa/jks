@@ -26,31 +26,45 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Spareparts</h1>
+<h1>Daftar Spareparts</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php 
+	$this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'sparepart-grid',
+	'type' => TbHtml::GRID_TYPE_HOVER,
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'ID_SPAREPART',
-		'NAMA_BARANG',
-		'HARGA_SATUAN',
-		'STOK',
+
 		array(
-			'class'=>'CButtonColumn',
-		),
+			'header'=>'No',
+			'value'=>'$data->ID_SPAREPART',
+			),
+		array(
+			'name'=>'NAMA_BARANG',
+			'header'=>'Nama Barang',
+			),
+		array(
+			'header'=>'Harga Satuan',
+			'value'=>'$data->HARGA_SATUAN',
+			),
+		array(
+			'header'=>'Stok',
+			'value'=>'$data->STOK'
+			),
+		array(
+				'header'=>'Aksi', 'type'=>'raw', 'value'=>'CHtml::link(\'pilih\', array(\'sparepart/insert\', \'id\'=>$data->ID_SPAREPART,\'peng\'=>$_GET[\'id\']))'
+			)
 	),
+	/*
+	'columns'=> function($data)
+	{
+		if(empty($data))
+		{
+			return TbHtml::linkButton("Buat Material Kantor Baru", array("submit"=>array("materialKantor/create", "id"=>$_GET["id"]),"color" => TbHtml::BUTTON_COLOR_INFO));
+		}
+	}
+	*/
+	'emptyText'=> TbHtml::linkButton("Buat Nama Sparepart Baru", array("submit"=>array("sparepart/create", "id"=>$_GET["id"]),"color" => TbHtml::BUTTON_COLOR_INFO))
+	//'emptyText'=> 'TbHtml::linkButton(\'Buat Material Kantor Baru\', array(\'submit\'=>array(\'materialKantor/create\', \'id\'=>$_GET[\'id\']),\'color\' => TbHtml::BUTTON_COLOR_INFO))'
 )); ?>

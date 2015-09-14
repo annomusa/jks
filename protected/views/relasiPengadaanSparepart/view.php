@@ -7,25 +7,39 @@ $this->breadcrumbs=array(
 	$model->ID_RELASI,
 );
 
-$this->menu=array(
-	array('label'=>'List RelasiPengadaanSparepart', 'url'=>array('index')),
-	array('label'=>'Create RelasiPengadaanSparepart', 'url'=>array('create')),
-	array('label'=>'Update RelasiPengadaanSparepart', 'url'=>array('update', 'id'=>$model->ID_RELASI)),
-	array('label'=>'Delete RelasiPengadaanSparepart', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID_RELASI),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage RelasiPengadaanSparepart', 'url'=>array('admin')),
-);
 ?>
 
-<h1>View RelasiPengadaanSparepart #<?php echo $model->ID_RELASI; ?></h1>
+<h1>Daftar Sparepart yang dipilih #<?php echo $id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'ID_RELASI',
-		'ID_PENGADAAN',
-		'ID_SPAREPART',
-		'ID_SATUAN',
-		'JUMLAH',
-		'HARGA_SEMENTARA',
-	),
-)); ?>
+<?php 
+$this->widget('bootstrap.widgets.TbGridView', array(
+		'id'=>'relasiPengadaanSparepart-grid',
+		'type' => TbHtml::GRID_TYPE_HOVER,
+		'dataProvider'=>$model->search2($id),
+		'template' => "{items}\n{pager}",
+		'columns'=>array(
+			array(
+			'header'=>'No',   'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
+			),
+			array(
+				'name'=>'ID Pengadaan', 'value'=>'$data->ID_PENGADAAN'
+				),
+			array(
+				'name'=>'Nama Sparepart', 'value'=>'$data->iDSPAREPART->NAMA_BARANG'
+				),
+			array(
+				'name'=>'Jumlah', 'type'=>'raw', 'value'=>function($data,$row)
+				{
+					if($data->JUMLAH==NULL)
+					{
+						return TbHtml::link("ISI JUMLAH", array("relasiPengadaanSparepart/isi", "id"=>$data->ID_RELASI),array('style'=>'font-weight:900;text-decoration:none;'));
+					}
+					else return $data->JUMLAH;
+				}
+				),
+			array(
+				'name'=>'Harga Sementara', 'value'=>'$data->HARGA_SEMENTARA'
+				),
+			),
+		));
+ ?>

@@ -121,6 +121,147 @@ class Perjalanan extends CActiveRecord
 		));
 	}
 
+
+	public function namaAksi ($id, $stat_cetak, $jenis_t)
+
+	{
+		$idpeg = Yii::app()->user->id;
+		$previlage = Yii::app()->db->createCommand()
+		->select('ID_PREVILAGE')
+		->from('pegawai')
+		->where('ID_PEGAWAI=:ID_PEGAWAI',array(':ID_PEGAWAI'=>$idpeg))
+		->queryScalar();
+		$idpem = Yii::app()->db->createCommand()->select('ID_TIM_PEMERIKSA')->from('tim_pemeriksa')->where('ID_KETUA=:ID_KETUA or ID_SEKRETARIS=:ID_SEKRETARIS or ID_ANGGOTA_1=:ID_ANGGOTA_1 or ID_ANGGOTA_2=:ID_ANGGOTA_2 or ID_ANGGOTA_3=:ID_ANGGOTA_3',array(':ID_KETUA'=>$idpeg, ':ID_SEKRETARIS'=>$idpeg, ':ID_ANGGOTA_1'=>$idpeg, ':ID_ANGGOTA_2'=>$idpeg, ':ID_ANGGOTA_3'=>$idpeg))->queryScalar();
+		$idtim = Yii::app()->db->createCommand()->select('ID_TIM_PEMERIKSA')->from('transaksi')->where('ID_TRANSAKSI=:ID_TRANSAKSI',array(':ID_TRANSAKSI'=>$id))->queryScalar();
+
+		if ($jenis_t==1)
+		{
+			if  (($previlage == 1 && $stat_cetak == "BARU") ||
+				($previlage == 1 && $stat_cetak == "BA") ||
+				($previlage == 1 && $stat_cetak == "NODIN") ||
+				($previlage == 2 && $stat_cetak == "NODIN" && $idpem==$idtim) ||
+				($previlage == 3 && $stat_cetak == "NODIN" && $idpem==$idtim) ||
+				($previlage == 4 && $stat_cetak == "NODIN" && $idpem==$idtim) ||
+				($previlage == 11 && $stat_cetak == "NODIN" && $idpem==$idtim) ||
+				($previlage == 12 && $stat_cetak == "NODIN" && $idpem==$idtim) ||
+				($previlage == 3 && $stat_cetak == "TUG4") ||
+				($previlage == 3 && $stat_cetak == "TANDA_TERIMA"))
+				return "PROSES";
+			else
+				return "LIHAT";
+		}
+
+		else
+		{
+			if  (($previlage == 1 && ($stat_cetak == "TANDA_TERIMA" || $stat_cetak == "ADMINISTRASI")) ||
+				($previlage == 3 && $stat_cetak == "TANDA_TERIMA"))
+				return "PROSES";
+			else
+				return "LIHAT";
+		}
+			
+	}
+
+	public function linkAksi($id_jenis, $cetak, $namaksi, $idtrans)
+	{
+		$id = Yii::app()->user->id;
+		$previlage = Yii::app()->db->createCommand()
+		->select('ID_PREVILAGE')
+		->from('pegawai')
+		->where('ID_PEGAWAI=:ID_PEGAWAI',array(':ID_PEGAWAI'=>$id))
+		->queryScalar();
+
+		$foto = Transaksi::model()->findAllByAttributes(array('ID_TRANSAKSI'=>$idtrans));
+
+		foreach ($foto as $i=>$ii)
+		{
+			if ($id_jenis==1)
+			{
+				if (file_exists(Yii::getPathOfAlias('webroot').'/images/foto_barang_masuk/'.$ii['FOTO_DOKUMEN_1']))
+				{
+					rename(Yii::getPathOfAlias('webroot').'/images/foto_barang_masuk/'.$ii['FOTO_DOKUMEN_1'],
+					Yii::getPathOfAlias('webroot').'/images/foto_barang_masuk/'.$idtrans.'_foto_dokumen1.jpg');
+					Transaksi::model()->updateByPk($idtrans,array("FOTO_DOKUMEN_1"=>$idtrans.'_foto_dokumen1.jpg'));
+				}
+				if (file_exists(Yii::getPathOfAlias('webroot').'/images/foto_barang_masuk/'.$ii['FOTO_DOKUMEN_2']))
+				{
+					rename(Yii::getPathOfAlias('webroot').'/images/foto_barang_masuk/'.$ii['FOTO_DOKUMEN_2'],
+					Yii::getPathOfAlias('webroot').'/images/foto_barang_masuk/'.$idtrans.'_foto_dokumen2.jpg');
+					Transaksi::model()->updateByPk($idtrans,array("FOTO_DOKUMEN_2"=>$idtrans.'_foto_dokumen2.jpg'));
+				}
+				if (file_exists(Yii::getPathOfAlias('webroot').'/images/foto_barang_masuk/'.$ii['FOTO_DOKUMEN_3']))
+				{
+					rename(Yii::getPathOfAlias('webroot').'/images/foto_barang_masuk/'.$ii['FOTO_DOKUMEN_3'],
+					Yii::getPathOfAlias('webroot').'/images/foto_barang_masuk/'.$idtrans.'_foto_dokumen3.jpg');
+					Transaksi::model()->updateByPk($idtrans,array("FOTO_DOKUMEN_3"=>$idtrans.'_foto_dokumen3.jpg'));
+				}
+			}
+			else
+			{
+				if (file_exists(Yii::getPathOfAlias('webroot').'/images/foto_barang_keluar/'.$ii['FOTO_DOKUMEN_1']))
+				{
+					rename(Yii::getPathOfAlias('webroot').'/images/foto_barang_keluar/'.$ii['FOTO_DOKUMEN_1'],
+					Yii::getPathOfAlias('webroot').'/images/foto_barang_keluar/'.$idtrans.'_foto_dokumen1.jpg');
+					Transaksi::model()->updateByPk($idtrans,array("FOTO_DOKUMEN_1"=>$idtrans.'_foto_dokumen1.jpg'));
+				}
+				if (file_exists(Yii::getPathOfAlias('webroot').'/images/foto_barang_keluar/'.$ii['FOTO_DOKUMEN_2']))
+				{
+					rename(Yii::getPathOfAlias('webroot').'/images/foto_barang_keluar/'.$ii['FOTO_DOKUMEN_2'],
+					Yii::getPathOfAlias('webroot').'/images/foto_barang_keluar/'.$idtrans.'_foto_dokumen2.jpg');
+					Transaksi::model()->updateByPk($idtrans,array("FOTO_DOKUMEN_2"=>$idtrans.'_foto_dokumen2.jpg'));
+				}
+				if (file_exists(Yii::getPathOfAlias('webroot').'/images/foto_barang_keluar/'.$ii['FOTO_DOKUMEN_3']))
+				{
+					rename(Yii::getPathOfAlias('webroot').'/images/foto_barang_keluar/'.$ii['FOTO_DOKUMEN_3'],
+					Yii::getPathOfAlias('webroot').'/images/foto_barang_keluar/'.$idtrans.'_foto_dokumen3.jpg');
+					Transaksi::model()->updateByPk($idtrans,array("FOTO_DOKUMEN_3"=>$idtrans.'_foto_dokumen3.jpg'));
+				}
+			}
+		}
+
+		
+
+		if ($id_jenis == 1 && $namaksi == "PROSES")
+		{
+			if($previlage == 1 && $cetak == "BARU")
+			{
+				return "update";
+			}
+			else if($previlage == 1 && $cetak == "NODIN")
+			{
+				return "update1a";
+			}
+			else if(($previlage == 2 || $previlage == 3 || $previlage == 4 || $previlage == 11 || $previlage == 12) && $cetak == "NODIN")
+			{
+				return "update1";
+			}
+			else if($previlage == 1 && $cetak == "BA")
+			{
+				return "update2";
+			}
+			else if(($previlage == 3 && $cetak == "TUG4"))
+			{
+				return "updatea";
+			}
+		}
+		else if ($id_jenis == 1 && $namaksi == "LIHAT")
+			return "viewdetail";
+		else if ($id_jenis == 2 && $namaksi == "PROSES")
+		{
+			if(($cetak == "TANDA_TERIMA" || $cetak == "ADMINISTRASI") && $previlage == 1)
+				return "keluarproses";
+			else if ($cetak == "TANDA_TERIMA" && $previlage==3)
+				return "keluarapprove";
+		}
+		else if ($id_jenis == 2 && $namaksi == "LIHAT")
+		{
+			if($previlage == 1 && ($cetak == 'TUG8' || $cetak == 'TUG9'))
+				return "keluarlihatproses";
+			else
+				return "keluarlihat";
+		}
+			
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

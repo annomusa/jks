@@ -32,7 +32,7 @@ class PerbaikanController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -71,7 +71,22 @@ class PerbaikanController extends Controller
 		{
 			$model->attributes=$_POST['Perbaikan'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID_PERBAIKAN));
+			{
+				if($model->JENIS_PERBAIKAN=="0")
+				{
+					Perbaikan::model()->updateByPk($model->ID_PERBAIKAN,array('STATUS'=>"Ke Mekanik"));
+				}
+				else if($model->JENIS_PERBAIKAN=="1")
+				{
+					Perbaikan::model()->updateByPk($model->ID_PERBAIKAN,array('STATUS'=>"Ganti Sparepart"));
+				}
+				else if($model->JENIS_PERBAIKAN=="2")
+				{
+					Perbaikan::model()->updateByPk($model->ID_PERBAIKAN,array('STATUS'=>"Ke Mekanik dan Ganti Sparepart"));
+				}
+				$this->redirect(array('admin'));	
+			}
+				
 		}
 
 		$this->render('create',array(

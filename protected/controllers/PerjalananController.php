@@ -32,7 +32,7 @@ class PerjalananController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','create2','create3','update','Pilihpenerbit','admin'),
+				'actions'=>array('create','create2', 'lanjut','create3','update','Pilihpenerbit','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -70,6 +70,7 @@ class PerjalananController extends Controller
 		if(isset($_POST['Perjalanan']))
 		{
 			$model->attributes=$_POST['Perjalanan'];
+			$model->STATUS = "BARU";
 			if($model->save())
 				$this->redirect(array('create2','id'=>$model->ID_PERJALANAN));
 		}
@@ -89,6 +90,7 @@ class PerjalananController extends Controller
 		if(isset($_POST['Perjalanan']))
 		{
 			$model->attributes=$_POST['Perjalanan'];
+			$model->STATUS = "TUJUAN TERISI";
 			if($model->save())
 				$this->redirect(array('create2','id'=>$model->ID_PERJALANAN));
 		}
@@ -96,6 +98,14 @@ class PerjalananController extends Controller
 		$this->render('create2',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionLanjut($id)
+	{
+		$model=$this->loadModel($id);
+
+		Perjalanan::model()->updateByPk($id,array("STATUS"=>"TUJUAN TERISI"));
+		$this->redirect(array('create3',"id"=>$id));
 	}
 
 	public function actionCreate3($id)
@@ -108,8 +118,9 @@ class PerjalananController extends Controller
 		if(isset($_POST['Perjalanan']))
 		{
 			$model->attributes=$_POST['Perjalanan'];
+			Perjalanan::model()->updateByPk($id,array("STATUS"=>"SELESAI"));
 			if($model->save())
-				$this->redirect(array('create3','id'=>$model->ID_PERJALANAN));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create3',array(

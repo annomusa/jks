@@ -40,22 +40,54 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'pengadaan-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'ID_PENGADAAN',
-		'NO_PO',
-		'TGL_PENGADAAN',
-		'PERMINTAAN',
-		'HARGA_TOTAL',
-		'NAMA_TOKO',
-		/*
-		'NO_TLP',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+<?php 
+$this->widget('bootstrap.widgets.TbGridView', array(
+		'id'=>'pengadaan-grid',
+		'type' => TbHtml::GRID_TYPE_HOVER,
+		'dataProvider'=>$model->search(),
+		'template' => "{items}\n{pager}",
+		'columns'=>array(
+			array(
+			'header'=>'No',   'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
+			),
+			array(
+				'name'=>'ID Pengadaan', 'value'=>'$data->ID_PENGADAAN'
+				),
+			array(
+				'name'=>'No Po', 'value'=>'$data->NO_PO'
+				),
+			array(
+				'name'=>'Tanggal Pengadaan', 'value'=>'$data->TGL_PENGADAAN'
+				),
+			array(
+				'name'=>'Permintaan', 'value'=>'$data->PERMINTAAN'
+				),
+			array(
+				'name'=>'Nama Toko', 'value'=>'$data->NAMA_TOKO'
+				),
+			array(
+				'name'=>'Harga Total', 'value'=>'$data->HARGA_TOTAL'
+				),
+			array(
+				'name'=>'Status', 'value'=>'$data->STATUS'
+				),
+			array(
+				'name'=>'Aksi', 'type'=>'raw', 'value'=>function($data, $row)
+				{
+					if($data->STATUS=="BARU")
+					{
+						return TbHtml::link("Pilih Sparepart", array("create2", "id"=>$data->ID_PENGADAAN),array('style'=>'font-weight:900;text-decoration:none;'));
+					}
+					else if($data->STATUS=="PERSETUJUAN KEUANGAN")
+					{
+						return TbHtml::link("Setujui", array("create3", "id"=>$data->ID_PENGADAAN),array('style' => 'font-weight:900;text-decoration:none;'));
+					}
+					else if($data->STATUS=="DISETUJUI KEUANGAN")
+					{
+						return TbHtml::link("Lihat Detil", array("view", "id"=>$data->ID_PENGADAAN),array('style' => 'font-weight:900;text-decoration:none;'));
+					}
+				}
+				),
+			),
+		)); 
+?>

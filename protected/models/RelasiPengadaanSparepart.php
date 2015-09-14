@@ -34,7 +34,7 @@ class RelasiPengadaanSparepart extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID_PENGADAAN, ID_SPAREPART, ID_SATUAN', 'required'),
+			array('ID_PENGADAAN, ID_SPAREPART', 'required'),
 			array('ID_PENGADAAN, ID_SPAREPART, ID_SATUAN, JUMLAH, HARGA_SEMENTARA', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -95,6 +95,29 @@ class RelasiPengadaanSparepart extends CActiveRecord
 		$criteria->compare('ID_SATUAN',$this->ID_SATUAN);
 		$criteria->compare('JUMLAH',$this->JUMLAH);
 		$criteria->compare('HARGA_SEMENTARA',$this->HARGA_SEMENTARA);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	public function search2($id)
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ID_RELASI',$this->ID_RELASI);
+		$criteria->compare('ID_PENGADAAN',$this->ID_PENGADAAN);
+		$criteria->compare('ID_SPAREPART',$this->ID_SPAREPART);
+		$criteria->compare('ID_SATUAN',$this->ID_SATUAN);
+		$criteria->compare('JUMLAH',$this->JUMLAH);
+		$criteria->compare('HARGA_SEMENTARA',$this->HARGA_SEMENTARA);
+
+		if(!empty($id))
+		{
+			$criteria->condition = "ID_PENGADAAN='$id'";
+		}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

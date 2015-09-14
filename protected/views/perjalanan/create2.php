@@ -46,7 +46,7 @@ $isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_po')->w
 if($isi!=NULL)
 {
 	echo "Sudah selesai?";
-	echo TbHtml::submitButton('LANJUT', array('submit'=> array("create3","id"=>$model->ID_PERJALANAN),'color' => TbHtml::BUTTON_COLOR_PRIMARY));
+	echo TbHtml::submitButton('LANJUT', array('submit'=> array("lanjut","id"=>$model->ID_PERJALANAN),'color' => TbHtml::BUTTON_COLOR_PRIMARY));
 }
 
 ?>
