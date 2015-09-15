@@ -16,8 +16,9 @@ $this->menu=array(
 <h1>Pilih jenis Spare-parts yang akan diadakan</h1>
 
 <?php
-	$this->renderPartial('/sparepart/admin', array('model'=>Sparepart::model(), "id"=>$model->ID_PENGADAAN));
+	$this->renderPartial('/sparepart/admin', array('model'=>Sparepart::model()));
 ?>
+<p></p>
 <?php
 	$this->renderPartial('/relasiPengadaanSparepart/view', array('model'=>RelasiPengadaanSparepart::model(), "id"=>$model->ID_PENGADAAN));
 ?>

@@ -72,7 +72,7 @@ class PengadaanController extends Controller
 			$model->attributes=$_POST['Pengadaan'];
 			$model->STATUS="BARU";
 			if($model->save())
-				$this->redirect(array('create2','id'=>$model->ID_PENGADAAN));
+				$this->redirect(array('sparepart/admin','id'=>$model->ID_PENGADAAN));
 		}
 
 		$this->render('create',array(

@@ -83,7 +83,7 @@ class Sparepart extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('ID_SPAREPART',$this->ID_SPAREPART);
-		$criteria->compare('NAMA_BARANG',$this->NAMA_BARANG,true);
+		$criteria->compare('NAMA_BARANG',$this->NAMA_BARANG);
 		$criteria->compare('HARGA_SATUAN',$this->HARGA_SATUAN);
 		$criteria->compare('STOK',$this->STOK);
 

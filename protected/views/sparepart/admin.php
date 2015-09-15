@@ -37,8 +37,7 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 
 		array(
-			'header'=>'No',
-			'value'=>'$data->ID_SPAREPART',
+			'header'=>'No','value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
 			),
 		array(
 			'name'=>'NAMA_BARANG',
@@ -68,3 +67,22 @@ $('.search-form form').submit(function(){
 	'emptyText'=> TbHtml::linkButton("Buat Nama Sparepart Baru", array("submit"=>array("sparepart/create", "id"=>$_GET["id"]),"color" => TbHtml::BUTTON_COLOR_INFO))
 	//'emptyText'=> 'TbHtml::linkButton(\'Buat Material Kantor Baru\', array(\'submit\'=>array(\'materialKantor/create\', \'id\'=>$_GET[\'id\']),\'color\' => TbHtml::BUTTON_COLOR_INFO))'
 )); ?>
+
+<p></p>
+<?php
+
+	$id_2 = $_GET['id'];
+	$this->renderPartial('/relasiPengadaanSparepart/view', array('model'=>RelasiPengadaanSparepart::model(), "id"=>$id_2));
+?>
+
+<?php 
+$isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_pengadaan_sparepart')->where('ID_PENGADAAN=:ID_PENGADAAN',array(':ID_PENGADAAN'=>$id_2))->queryScalar();
+
+
+if($isi!=NULL)
+{
+	echo "Sudah selesai?";
+	echo TbHtml::submitButton('LANJUT', array('submit'=> array("Pengadaan/lanjut","id"=>$id_2),'color' => TbHtml::BUTTON_COLOR_PRIMARY));
+}
+
+?>
