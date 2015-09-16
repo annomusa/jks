@@ -1,16 +1,5 @@
 <?php
-/* @var $this SparepartController */
-/* @var $model Sparepart */
 
-$this->breadcrumbs=array(
-	'Spareparts'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Sparepart', 'url'=>array('index')),
-	array('label'=>'Create Sparepart', 'url'=>array('create')),
-);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -53,7 +42,7 @@ $('.search-form form').submit(function(){
 			),
 		array(
 				'header'=>'Aksi', 'type'=>'raw', 'value'=>'CHtml::link(\'pilih\', array(\'sparepart/insert\', \'id\'=>$data->ID_SPAREPART,\'peng\'=>$_GET[\'id\']))'
-			)
+			),
 	),
 	/*
 	'columns'=> function($data)
@@ -64,7 +53,7 @@ $('.search-form form').submit(function(){
 		}
 	}
 	*/
-	'emptyText'=> TbHtml::linkButton("Buat Nama Sparepart Baru", array("submit"=>array("sparepart/create", "id"=>$_GET["id"]),"color" => TbHtml::BUTTON_COLOR_INFO))
+	'emptyText'=> TbHtml::linkButton("Buat Nama Sparepart Baru", array("submit"=>array("sparepart/create", "id"=>$_GET["id"]),"color" => TbHtml::BUTTON_COLOR_INFO)),
 	//'emptyText'=> 'TbHtml::linkButton(\'Buat Material Kantor Baru\', array(\'submit\'=>array(\'materialKantor/create\', \'id\'=>$_GET[\'id\']),\'color\' => TbHtml::BUTTON_COLOR_INFO))'
 )); ?>
 

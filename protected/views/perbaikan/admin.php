@@ -83,11 +83,14 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 				'name'=>'Status', 'value'=>'$data->STATUS'
 				),
 			array(
+				'name'=>'PJ Mekanik', 'value'=>'$data->pJMEKANIK->NAMA'
+				),
+			array(
 				'name'=>'Aksi', 'type'=>'raw', 'value'=>function($data, $row)
 				{
 					if($data->STATUS=="Ke Mekanik")
 					{
-						return TbHtml::link("Ke Mekanik", array("view", "id"=>$data->ID_PERBAIKAN),array('style'=>'font-weight:900;text-decoration:none;'));
+						return TbHtml::link("Ke Mekanik", array("mekanik", "id"=>$data->ID_PERBAIKAN),array('style'=>'font-weight:900;text-decoration:none;'));
 					}
 					else if($data->STATUS=="Ganti Sparepart")
 					{

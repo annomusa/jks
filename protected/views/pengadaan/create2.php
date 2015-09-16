@@ -18,19 +18,3 @@ $this->menu=array(
 <?php
 	$this->renderPartial('/sparepart/admin', array('model'=>Sparepart::model()));
 ?>
-<p></p>
-<?php
-	$this->renderPartial('/relasiPengadaanSparepart/view', array('model'=>RelasiPengadaanSparepart::model(), "id"=>$model->ID_PENGADAAN));
-?>
-
-<?php 
-$isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_pengadaan_sparepart')->where('ID_PENGADAAN=:ID_PENGADAAN',array(':ID_PENGADAAN'=>"$model->ID_PENGADAAN"))->queryScalar();
-
-
-if($isi!=NULL)
-{
-	echo "Sudah selesai?";
-	echo TbHtml::submitButton('LANJUT', array('submit'=> array("lanjut","id"=>$model->ID_PENGADAAN),'color' => TbHtml::BUTTON_COLOR_PRIMARY));
-}
-
-?>

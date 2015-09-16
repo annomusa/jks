@@ -1,28 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "karyawan".
+ * This is the model class for table "privilege".
  *
- * The followings are the available columns in table 'karyawan':
- * @property integer $ID_KARYAWAN
- * @property string $NAMA
- * @property string $NO_HP
- * @property string $ALAMAT
- * @property string $TGL_MASUK_KERJA
- * @property string $PENEMPATAN
- * @property string $STATUS
+ * The followings are the available columns in table 'privilege':
+ * @property integer $ID_PRIVILEGE
+ * @property string $NAMA_PRIVILEGE
  *
  * The followings are the available model relations:
- * @property Kendaraan[] $kendaraans
+ * @property Karyawan[] $karyawans
  */
-class Karyawan extends CActiveRecord
+class Privilege extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'karyawan';
+		return 'privilege';
 	}
 
 	/**
@@ -33,15 +28,11 @@ class Karyawan extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NAMA', 'required'),
-			array('NAMA, PENEMPATAN, STATUS', 'length', 'max'=>25),
-			array('ID_PRIVILEGE', 'numerical', 'integerOnly'=>true),
-			array('NO_HP', 'length', 'max'=>15),
-			array('ALAMAT', 'length', 'max'=>30),
-			array('TGL_MASUK_KERJA', 'safe'),
+			array('NAMA_PRIVILEGE', 'required'),
+			array('NAMA_PRIVILEGE', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_KARYAWAN, NAMA, NO_HP, ALAMAT, TGL_MASUK_KERJA, PENEMPATAN, STATUS', 'safe', 'on'=>'search'),
+			array('ID_PRIVILEGE, NAMA_PRIVILEGE', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,8 +44,7 @@ class Karyawan extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'kendaraans' => array(self::HAS_MANY, 'Kendaraan', 'ID_KARYAWAN'),
-			'iDPREVILEGE' => array(self::BELONGS_TO, 'Privilege', 'ID_PRIVILEGE'),
+			'karyawans' => array(self::HAS_MANY, 'Karyawan', 'ID_PRIVILEGE'),
 		);
 	}
 
@@ -64,13 +54,8 @@ class Karyawan extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID_KARYAWAN' => 'Id Karyawan',
-			'NAMA' => 'Nama',
-			'NO_HP' => 'No Hp',
-			'ALAMAT' => 'Alamat',
-			'TGL_MASUK_KERJA' => 'Tgl Masuk Kerja',
-			'PENEMPATAN' => 'Penempatan',
-			'STATUS' => 'Status',
+			'ID_PRIVILEGE' => 'Id Privilege',
+			'NAMA_PRIVILEGE' => 'Nama Privilege',
 		);
 	}
 
@@ -92,14 +77,8 @@ class Karyawan extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('ID_KARYAWAN',$this->ID_KARYAWAN);
-		$criteria->compare('NAMA',$this->NAMA,true);
-		$criteria->compare('ID_PRIVILEGE',$this->ID_PRIVILEGE,true);
-		$criteria->compare('NO_HP',$this->NO_HP,true);
-		$criteria->compare('ALAMAT',$this->ALAMAT,true);
-		$criteria->compare('TGL_MASUK_KERJA',$this->TGL_MASUK_KERJA,true);
-		$criteria->compare('PENEMPATAN',$this->PENEMPATAN,true);
-		$criteria->compare('STATUS',$this->STATUS,true);
+		$criteria->compare('ID_PRIVILEGE',$this->ID_PRIVILEGE);
+		$criteria->compare('NAMA_PRIVILEGE',$this->NAMA_PRIVILEGE,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -110,7 +89,7 @@ class Karyawan extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Karyawan the static model class
+	 * @return Privilege the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

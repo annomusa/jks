@@ -32,7 +32,7 @@ class PerbaikanController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin'),
+				'actions'=>array('create','update','admin','mekanik'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -114,6 +114,25 @@ class PerbaikanController extends Controller
 		}
 
 		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionMekanik($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Perbaikan']))
+		{
+			$model->attributes=$_POST['Perbaikan'];
+			if($model->save())
+				$this->redirect(array('admin'));
+		}
+
+		$this->render('mekanik',array(
 			'model'=>$model,
 		));
 	}

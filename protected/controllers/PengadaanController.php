@@ -178,6 +178,19 @@ class PengadaanController extends Controller
 	{
 		$model=$this->loadModel($id);
 
+		$relasi = RelasiPengadaanSparepart::model()->findAllByAttributes(array('ID_PENGADAAN'=>$id));
+
+		foreach ($relasi as $rel) 
+		{
+			$stok = Yii::app()->db->createCommand()->select('STOK')->from('sparepart')->where('ID_SPAREPART=:ID_SPAREPART',array(':ID_SPAREPART'=>$rel->ID_SPAREPART))->queryScalar();
+			if($stok==NULL)
+			{
+				$stok=$rel->JUMLAH;
+			}
+			else $stok = $stok+$rel->JUMLAH;
+			Sparepart::model()->updateByPk($rel->ID_SPAREPART,array("STOK"=>$stok));
+		}
+
 		Pengadaan::model()->updateByPk($id,array("STATUS"=>"DISETUJUI KEUANGAN"));
 		$this->redirect(array('admin'));
 	}

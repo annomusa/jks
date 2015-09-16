@@ -76,9 +76,9 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 				{
 					if($data->STATUS=="BARU")
 					{
-						return TbHtml::link("Pilih Sparepart", array("create2", "id"=>$data->ID_PENGADAAN),array('style'=>'font-weight:900;text-decoration:none;'));
+						return TbHtml::link("Pilih Sparepart", array("sparepart/admin", "id"=>$data->ID_PENGADAAN),array('style'=>'font-weight:900;text-decoration:none;'));
 					}
-					else if($data->STATUS=="PERSETUJUAN KEUANGAN")
+					else if($data->STATUS=="PENYETUJUAN KEUANGAN")
 					{
 						return TbHtml::link("Setujui", array("create3", "id"=>$data->ID_PENGADAAN),array('style' => 'font-weight:900;text-decoration:none;'));
 					}

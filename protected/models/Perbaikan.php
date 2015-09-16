@@ -32,12 +32,12 @@ class Perbaikan extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID_KENDARAAN, TGL_PERBAIKAN, JENIS_PERBAIKAN', 'required'),
-			array('ID_KENDARAAN, ESTIMASI_WAKTU_PERBAIKAN', 'numerical', 'integerOnly'=>true),
+			array('ID_KENDARAAN, ESTIMASI_WAKTU_PERBAIKAN, PJ_MEKANIK', 'numerical', 'integerOnly'=>true),
 			array('KERUSAKAN, JENIS_PERBAIKAN, STATUS', 'length', 'max'=>50),
 			array('TGL_PERBAIKAN', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_PERBAIKAN, ID_KENDARAAN, TGL_PERBAIKAN, KERUSAKAN, ESTIMASI_WAKTU_PERBAIKAN, JENIS_PERBAIKAN, STATUS', 'safe', 'on'=>'search'),
+			array('ID_PERBAIKAN, ID_KENDARAAN, TGL_PERBAIKAN, KERUSAKAN, ESTIMASI_WAKTU_PERBAIKAN, JENIS_PERBAIKAN, STATUS, PJ_MEKANIK', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,6 +50,7 @@ class Perbaikan extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'iDKENDARAAN' => array(self::BELONGS_TO, 'Kendaraan', 'ID_KENDARAAN'),
+			'pJMEKANIK' => array(self::BELONGS_TO, 'Karyawan', 'PJ_MEKANIK'),
 		);
 	}
 
@@ -92,6 +93,7 @@ class Perbaikan extends CActiveRecord
 		$criteria->compare('ESTIMASI_WAKTU_PERBAIKAN',$this->ESTIMASI_WAKTU_PERBAIKAN);
 		$criteria->compare('JENIS_PERBAIKAN',$this->JENIS_PERBAIKAN);
 		$criteria->compare('STATUS',$this->STATUS);
+		$criteria->compare('PJ_MEKANIK',$this->PJ_MEKANIK);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

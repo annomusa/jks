@@ -26,31 +26,42 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Penerbits</h1>
+<?php  
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'penerbit-grid',
+	'type' => TbHtml::GRID_TYPE_HOVER,
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'ID_PENERBIT',
-		'NAMA_PENERBIT',
-		'NO_TLP',
-		'ALAMAT',
+
 		array(
-			'class'=>'CButtonColumn',
-		),
+			'header'=>'No','value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
+			),
+		array(
+			'name'=>'NAMA_PENERBIT',
+			'header'=>'Nama Penerbit',
+			),
+		array(
+			'header'=>'No Tlp',
+			'value'=>'$data->NO_TLP',
+			),
+		array(
+			'header'=>'Alamat',
+			'value'=>'$data->ALAMAT'
+			),
 	),
-)); ?>
+	/*
+	'columns'=> function($data)
+	{
+		if(empty($data))
+		{
+			return TbHtml::linkButton("Buat Material Kantor Baru", array("submit"=>array("materialKantor/create", "id"=>$_GET["id"]),"color" => TbHtml::BUTTON_COLOR_INFO));
+		}
+	}
+	*/
+	'emptyText'=> TbHtml::linkButton("Buat Penerbit Baru", array("submit"=>array("penerbit/create"),"color" => TbHtml::BUTTON_COLOR_INFO)),
+	//'emptyText'=> 'TbHtml::linkButton(\'Buat Material Kantor Baru\', array(\'submit\'=>array(\'materialKantor/create\', \'id\'=>$_GET[\'id\']),\'color\' => TbHtml::BUTTON_COLOR_INFO))'
+));
+
+?>

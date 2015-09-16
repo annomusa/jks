@@ -1,6 +1,6 @@
 <?php
 
-class SparepartController extends Controller
+class PrivilegeController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -32,7 +32,7 @@ class SparepartController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create', 'create2','update','admin','insert'),
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -60,41 +60,22 @@ class SparepartController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($id)
+	public function actionCreate()
 	{
-		$model=new Sparepart;
+		$model=new Privilege;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Sparepart']))
+		if(isset($_POST['Privilege']))
 		{
-			$model->attributes=$_POST['Sparepart'];
+			$model->attributes=$_POST['Privilege'];
 			if($model->save())
-				$this->redirect(array('pengadaan/create2','id'=>$id));
+				$this->redirect(array('view','id'=>$model->ID_PRIVILEGE));
 		}
 
 		$this->render('create',array(
-			'model'=>$model, 'id'=>$id
-		));
-	}
-
-	public function actionCreate2($id)
-	{
-		//$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Sparepart']))
-		{
-			$model->attributes=$_POST['Sparepart'];
-			if($model->save())
-				$this->redirect(array('create2','id'=>$id));
-		}
-
-		$this->render('create2',array(
-			'model'=>$model, 'id'=>$id
+			'model'=>$model,
 		));
 	}
 
@@ -110,11 +91,11 @@ class SparepartController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Sparepart']))
+		if(isset($_POST['Privilege']))
 		{
-			$model->attributes=$_POST['Sparepart'];
+			$model->attributes=$_POST['Privilege'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID_SPAREPART));
+				$this->redirect(array('view','id'=>$model->ID_PRIVILEGE));
 		}
 
 		$this->render('update',array(
@@ -136,44 +117,12 @@ class SparepartController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	public function actionInsert($id, $peng)
-	{
-		$isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_pengadaan_sparepart')->where('ID_PENGADAAN=:ID_PENGADAAN AND ID_SPAREPART=:ID_SPAREPART',array(':ID_PENGADAAN'=>$peng, ':ID_SPAREPART'=>$id))->queryScalar();
-		$idrel = Yii::app()->db->createCommand()->select('ID_RELASI')->from('relasi_pengadaan_sparepart')->where('ID_PENGADAAN=:ID_PENGADAAN AND ID_SPAREPART=:ID_SPAREPART',array(':ID_PENGADAAN'=>$peng, ':ID_SPAREPART'=>$id))->queryScalar();
-		$total = Yii::app()->db->createCommand()->select('HARGA_TOTAL')->from('pengadaan')->where('ID_PENGADAAN=:ID_PENGADAAN',array(':ID_PENGADAAN'=>$peng))->queryScalar();
-		
-		if($isi==0)
-		{
-			Yii::app()->db->createCommand()->insert('relasi_pengadaan_sparepart',array('ID_PENGADAAN'=>$peng, 'ID_SPAREPART'=>$id));
-			$harga = Yii::app()->db->createCommand()->select('HARGA_SEMENTARA')->from('relasi_pengadaan_sparepart')->where('ID_PENGADAAN=:ID_PENGADAAN',array(':ID_PENGADAAN'=>$peng))->queryScalar();
-			if($total==NULL)
-			{
-				$total = $harga;
-			}
-			else if($total!=NULL)
-			{
-				$total = $total+$harga;
-			}
-			
-		}
-		else if($isi>0)
-		{
-			RelasiPengadaanSparepart::model()->updateByPk($idrel,array('ID_PENGADAAN'=>$peng, 'ID_SPAREPART'=>$id));
-		}
-
-		Pengadaan::model()->updateByPk($peng,array("HARGA_TOTAL"=>$total));
-		
-
-
-		$this->redirect(array('sparepart/admin','id'=>$peng));
-	}
-
 	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Sparepart');
+		$dataProvider=new CActiveDataProvider('Privilege');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -184,10 +133,10 @@ class SparepartController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Sparepart('search');
+		$model=new Privilege('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Sparepart']))
-			$model->attributes=$_GET['Sparepart'];
+		if(isset($_GET['Privilege']))
+			$model->attributes=$_GET['Privilege'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -198,12 +147,12 @@ class SparepartController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Sparepart the loaded model
+	 * @return Privilege the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Sparepart::model()->findByPk($id);
+		$model=Privilege::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -211,11 +160,11 @@ class SparepartController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Sparepart $model the model to be validated
+	 * @param Privilege $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='sparepart-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='privilege-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

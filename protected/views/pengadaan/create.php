@@ -52,11 +52,7 @@ $this->menu=array(
 		<?php echo $form->error($model,'PERMINTAAN'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'HARGA_TOTAL'); ?>
-		<?php echo $form->textField($model,'HARGA_TOTAL'); ?>
-		<?php echo $form->error($model,'HARGA_TOTAL'); ?>
-	</div>
+	
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'NAMA_TOKO'); ?>

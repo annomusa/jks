@@ -29,10 +29,15 @@ $('.search-form form').submit(function(){
 ");
 ?>
 <h1>Buat PO Perjalanan Baru - Step 1 : Isi informasi Perjalanan</h1>
-
+<p class="note">Jika penerbit belum terdapat pada daftar, klik tombol Buat Penerbit</p>
+<?php 
+echo TbHtml::submitButton('Buat Penerbit', array('submit'=> array("penerbit/create"),'color' => TbHtml::BUTTON_COLOR_PRIMARY));
+?>
 <div class="form">
 
 <?php 
+	
+	
 
 	$form=$this->beginWidget('CActiveForm', array(
 	'id'=>'perjalanan-form',

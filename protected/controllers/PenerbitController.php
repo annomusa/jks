@@ -32,7 +32,7 @@ class PenerbitController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','admin','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -71,7 +71,7 @@ class PenerbitController extends Controller
 		{
 			$model->attributes=$_POST['Penerbit'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID_PENERBIT));
+				$this->redirect(array('perjalanan/create'));
 		}
 
 		$this->render('create',array(
