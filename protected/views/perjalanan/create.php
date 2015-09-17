@@ -7,10 +7,10 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Perjalanan', 'url'=>array('index')),
-	array('label'=>'Manage Perjalanan', 'url'=>array('admin')),
-);
+// $this->menu=array(
+// 	array('label'=>'List Perjalanan', 'url'=>array('index')),
+// 	array('label'=>'Manage Perjalanan', 'url'=>array('admin')),
+// );
 ?>
 
 <?php
@@ -31,7 +31,8 @@ $('.search-form form').submit(function(){
 <h1>Buat PO Perjalanan Baru - Step 1 : Isi informasi Perjalanan</h1>
 <p class="note">Jika penerbit belum terdapat pada daftar, klik tombol Buat Penerbit</p>
 <?php 
-echo TbHtml::submitButton('Buat Penerbit', array('submit'=> array("penerbit/create"),'color' => TbHtml::BUTTON_COLOR_PRIMARY));
+echo TbHtml::submitButton('Buat Penerbit', array('submit'=> array("penerbit/create")));
+	//,'color' => TbHtml::BUTTON_COLOR_PRIMARY));
 ?>
 <div class="form">
 
@@ -48,6 +49,7 @@ echo TbHtml::submitButton('Buat Penerbit', array('submit'=> array("penerbit/crea
 	'enableAjaxValidation'=>false,
 )); ?>
 
+	<br>
 	<p class="note">Kolom dengan tanda <span class="required">*</span> harus diisi.</p>
 
 	<?php echo $form->errorSummary($model); ?>

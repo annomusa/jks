@@ -7,10 +7,10 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Perjalanan', 'url'=>array('index')),
-	array('label'=>'Manage Perjalanan', 'url'=>array('admin')),
-);
+// $this->menu=array(
+// 	array('label'=>'List Perjalanan', 'url'=>array('index')),
+// 	array('label'=>'Manage Perjalanan', 'url'=>array('admin')),
+// );
 ?>
 
 <?php
@@ -31,7 +31,7 @@ $('.search-form form').submit(function(){
 <h1>Buat PO Perjalanan Baru - Step 2 : Pilih Tujuan / Ongkos Perjalanan</h1>
 
 
-</div><!-- form -->
+<!-- </div>form -->
 <?php
 	$this->renderPartial('/ongkos/create', array('model'=>Ongkos::model(), "id"=>$model->ID_PERJALANAN));
 ?>
@@ -46,6 +46,7 @@ $isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_po')->w
 if($isi!=NULL)
 {
 	echo "Sudah selesai?";
+	echo "\r\n";
 	echo TbHtml::submitButton('LANJUT', array('submit'=> array("lanjut","id"=>$model->ID_PERJALANAN),'color' => TbHtml::BUTTON_COLOR_PRIMARY));
 }
 
