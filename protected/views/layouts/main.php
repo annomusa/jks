@@ -98,6 +98,32 @@
 					</ul>
 				</li>
 
+				<li class="has-submenu"><a href="#"><i class="glyphicon glyphicon-paste"></i> <span class="nav-label">Data</span></a>
+	            	<ul class="list-unstyled">
+	            		<li>
+	            			<?php echo CHtml::link('Data Karyawan',array('/karyawan/index')); ?>
+	            		</li>
+	            		<li>
+	            			<?php echo CHtml::link('Data Administrator',array('/admin/index')); ?>
+	            		</li>
+	            		<li>
+	            			<?php echo CHtml::link('Data Satuan',array('/satuan/index')); ?>
+	            		</li>
+	            		<li>
+	            			<?php echo CHtml::link('Data Sparepart',array('/sparepart/index')); ?>
+	            		</li>
+	            		<li>
+	            			<?php echo CHtml::link('Data Kendaraan',array('/kendaraan/index')); ?>
+	            		</li>
+	            		<li>
+	            			<?php echo CHtml::link('Data Ongkos',array('/ongkos/index')); ?>
+	            		</li>
+	            		<li>
+	            			<?php echo CHtml::link('Data Penerbit',array('/penerbit/index')); ?>
+	            		</li>
+					</ul>
+				</li>
+
 				<li class="has-submenu"><a href="#"><i class="glyphicon glyphicon-list-alt"></i> <span class="nav-label">Laporan</span></a>
 	            	<ul class="list-unstyled">
 	                	<li><a href="#">Ban</a></li>

@@ -914,3 +914,61 @@ Stack trace:
 REQUEST_URI=/jks/index.php?r=perbaikan/admin
 HTTP_REFERER=http://localhost/jks/index.php?r=perbaikan/create
 ---
+2015/09/23 00:57:43 [error] [php] Undefined variable: model (C:\xampp\htdocs\jks\protected\views\site\login.php:29)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CController.php(869): SiteController->renderFile()
+#1 C:\xampp\htdocs\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#2 C:\xampp\htdocs\jks\protected\controllers\SiteController.php(32): SiteController->render()
+#3 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(286): SiteController->runAction()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#8 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\xampp\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\jks\index.php(13): CWebApplication->run()
+REQUEST_URI=/jks/
+in C:\xampp\htdocs\jks\protected\views\site\login.php (29)
+in C:\xampp\htdocs\jks\protected\controllers\SiteController.php (32)
+in C:\xampp\htdocs\jks\index.php (13)
+2015/09/23 01:00:28 [error] [exception.CException] exception 'CException' with message 'SiteController cannot find the requested view "actionLogin".' in C:\xampp\htdocs\yii\framework\web\CController.php:878
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CController.php(782): CController->renderPartial('actionLogin', NULL, true)
+#1 C:\xampp\htdocs\jks\protected\controllers\SiteController.php(32): CController->render('actionLogin')
+#2 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#3 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('')
+#7 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('')
+#8 C:\xampp\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#9 C:\xampp\htdocs\jks\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/jks/
+---
+2015/09/23 01:01:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "login".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\jks\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/jks/
+---
+2015/09/23 01:01:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "SiteController/actionLogin".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\jks\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/jks/
+---
+2015/09/23 01:07:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "login2".' in C:\xampp\htdocs\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CController.php(270): CController->missingAction('login2')
+#1 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('login2')
+#2 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('')
+#3 C:\xampp\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\jks\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/jks/
+---
