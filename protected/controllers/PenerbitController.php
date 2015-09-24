@@ -122,9 +122,18 @@ class PenerbitController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Penerbit');
+		/*$dataProvider=new CActiveDataProvider('Penerbit');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+		));*/
+
+		$model=new Penerbit('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Penerbit']))
+			$model->attributes=$_GET['Penerbit'];
+
+		$this->render('index',array(
+			'model'=>$model,
 		));
 	}
 

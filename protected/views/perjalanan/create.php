@@ -3,8 +3,8 @@
 /* @var $model Perjalanan */
 
 $this->breadcrumbs=array(
-	'Perjalanans'=>array('index'),
-	'Create',
+	'Perjalanan'=>array('index'),
+	'Buat Perjalanan Baru',
 );
 
 // $this->menu=array(

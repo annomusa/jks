@@ -15,7 +15,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Kolom dengan tanda <span class="required">*</span> harus diisi.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 

@@ -122,9 +122,17 @@ class AdminController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Admin');
+		/*$dataProvider=new CActiveDataProvider('Admin');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+		));*/
+		$model=new Admin('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Admin']))
+			$model->attributes=$_GET['Admin'];
+
+		$this->render('index',array(
+			'model'=>$model,
 		));
 	}
 

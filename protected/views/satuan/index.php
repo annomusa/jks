@@ -7,14 +7,23 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Satuan', 'url'=>array('create')),
-	array('label'=>'Manage Satuan', 'url'=>array('admin')),
+	array('label'=>'Buat Daftar Satuan Baru', 'url'=>array('create')),
+	//array('label'=>'Manage Satuan', 'url'=>array('admin')),
 );
 ?>
 
 <h1>Data Satuan</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'satuan-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
+		'ID_SATUAN',
+		'SATUAN',
+		'JENIS_SATUAN',
+		array(
+			'class'=>'CButtonColumn',
+		),
+	),
 )); ?>

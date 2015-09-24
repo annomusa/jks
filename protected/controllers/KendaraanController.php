@@ -122,9 +122,18 @@ class KendaraanController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Kendaraan');
+		/*$dataProvider=new CActiveDataProvider('Kendaraan');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+		));*/
+
+		$model=new Kendaraan('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Kendaraan']))
+			$model->attributes=$_GET['Kendaraan'];
+
+		$this->render('index',array(
+			'model'=>$model,
 		));
 	}
 

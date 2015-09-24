@@ -152,9 +152,18 @@ class OngkosController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Ongkos');
+		/*$dataProvider=new CActiveDataProvider('Ongkos');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+		));*/
+
+		$model=new Ongkos('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Ongkos']))
+			$model->attributes=$_GET['Ongkos'];
+
+		$this->render('index',array(
+			'model'=>$model,
 		));
 	}
 

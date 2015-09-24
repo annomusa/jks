@@ -122,9 +122,17 @@ class SatuanController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Satuan');
+		/*$dataProvider=new CActiveDataProvider('Satuan');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+		));*/
+		$model=new Satuan('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Satuan']))
+			$model->attributes=$_GET['Satuan'];
+
+		$this->render('index',array(
+			'model'=>$model,
 		));
 	}
 

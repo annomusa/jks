@@ -3,13 +3,13 @@
 /* @var $model Pengadaan */
 
 $this->breadcrumbs=array(
-	'Pengadaans'=>array('index'),
-	'Create',
+	'Pengadaan'=>array('index'),
+	'Buat Pengadaan Spareparts',
 );
 
 $this->menu=array(
-	array('label'=>'List Pengadaan', 'url'=>array('index')),
-	array('label'=>'Manage Pengadaan', 'url'=>array('admin')),
+	//array('label'=>'List Pengadaan', 'url'=>array('index')),
+	//array('label'=>'Manage Pengadaan', 'url'=>array('admin')),
 );
 ?>
 
@@ -26,7 +26,7 @@ $this->menu=array(
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Kolom dengan tanda <span class="required">*</span> harus diisi.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 

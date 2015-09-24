@@ -94,7 +94,7 @@ class Karyawan extends CActiveRecord
 
 		$criteria->compare('ID_KARYAWAN',$this->ID_KARYAWAN);
 		$criteria->compare('NAMA',$this->NAMA,true);
-		$criteria->compare('ID_PRIVILEGE',$this->ID_PRIVILEGE,true);
+		//$criteria->compare('ID_PRIVILEGE',$this->ID_PRIVILEGE,true);
 		$criteria->compare('NO_HP',$this->NO_HP,true);
 		$criteria->compare('ALAMAT',$this->ALAMAT,true);
 		$criteria->compare('TGL_MASUK_KERJA',$this->TGL_MASUK_KERJA,true);

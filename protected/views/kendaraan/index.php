@@ -7,14 +7,24 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Kendaraan', 'url'=>array('create')),
-	array('label'=>'Manage Kendaraan', 'url'=>array('admin')),
+	array('label'=>'Buat Data Kendaraan Baru', 'url'=>array('create')),
+	//array('label'=>'Manage Kendaraan', 'url'=>array('admin')),
 );
 ?>
 
 <h1>Data Kendaraan</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'kendaraan-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
+		'ID_KENDARAAN',
+		'ID_KARYAWAN',
+		'NOPOL',
+		'STATUS_SOPIR',
+		array(
+			'class'=>'CButtonColumn',
+		),
+	),
 )); ?>

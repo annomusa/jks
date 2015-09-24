@@ -7,14 +7,25 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Ongkos', 'url'=>array('create')),
-	array('label'=>'Manage Ongkos', 'url'=>array('admin')),
+	//array('label'=>'Buat Data Ongkos Baru', 'url'=>array('create')),
+	//array('label'=>'Manage Ongkos', 'url'=>array('admin')),
 );
 ?>
 
 <h1>Data Ongkos</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'ongkos-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
+		'ID_ONGKOS',
+		'ID_SATUAN',
+		'TUJUAN',
+		'HARGA',
+		array(
+			'class'=>'CButtonColumn',
+		),
+	),
 )); ?>
+

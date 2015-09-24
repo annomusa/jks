@@ -122,9 +122,17 @@ class KaryawanController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Karyawan');
+		/*$dataProvider=new CActiveDataProvider('Karyawan');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+		));*/
+		$model=new Karyawan('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Karyawan']))
+			$model->attributes=$_GET['Karyawan'];
+
+		$this->render('index',array(
+			'model'=>$model,
 		));
 	}
 

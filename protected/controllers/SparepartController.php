@@ -173,9 +173,17 @@ class SparepartController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Sparepart');
+		/*$dataProvider=new CActiveDataProvider('Sparepart');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+		));*/
+		$model=new Sparepart('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Sparepart']))
+			$model->attributes=$_GET['Sparepart'];
+
+		$this->render('index',array(
+			'model'=>$model,
 		));
 	}
 

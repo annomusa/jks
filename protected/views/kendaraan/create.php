@@ -3,16 +3,16 @@
 /* @var $model Kendaraan */
 
 $this->breadcrumbs=array(
-	'Kendaraans'=>array('index'),
-	'Create',
+	'Kendaraan'=>array('index'),
+	'Buat Data Kendaraan Baru',
 );
 
 $this->menu=array(
 	array('label'=>'List Kendaraan', 'url'=>array('index')),
-	array('label'=>'Manage Kendaraan', 'url'=>array('admin')),
+	//array('label'=>'Manage Kendaraan', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Kendaraan</h1>
+<h1>Buat Data Kendaraan Baru</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
