@@ -50,10 +50,10 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 				'name'=>'ID Perjalanan', 'value'=>'$data->ID_PERJALANAN'
 				),
 			array(
-				'name'=>'ID Penerbit', 'value'=>'$data->ID_PENERBIT'
+				'name'=>'Nama Penerbit', 'value'=>'$data->iDPENERBIT->NAMA_PENERBIT'
 				),
 			array(
-				'name'=>'ID Kendaraan', 'value'=>'$data->ID_KENDARAAN'
+				'name'=>'NOPOL Kendaraan', 'value'=>'$data->iDKENDARAAN->NOPOL'
 				),
 			array(
 				'name'=>'Tanggal Perjalanan', 'value'=>'$data->TGL_PERJALANAN'
