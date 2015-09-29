@@ -20,6 +20,10 @@ class Pengadaan extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+
+	public $from_date;
+	public $to_date;
+
 	public function tableName()
 	{
 		return 'pengadaan';
@@ -40,7 +44,7 @@ class Pengadaan extends CActiveRecord
 			array('TGL_PENGADAAN', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_PENGADAAN, NO_PO, TGL_PENGADAAN, PERMINTAAN, HARGA_TOTAL, NAMA_TOKO, NO_TLP, STATUS', 'safe', 'on'=>'search'),
+			array('ID_PENGADAAN, NO_PO, TGL_PENGADAAN, PERMINTAAN, HARGA_TOTAL, NAMA_TOKO, NO_TLP, from_date, to_date, STATUS', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,6 +101,41 @@ class Pengadaan extends CActiveRecord
 		$criteria->compare('HARGA_TOTAL',$this->HARGA_TOTAL);
 		$criteria->compare('NAMA_TOKO',$this->NAMA_TOKO,true);
 		$criteria->compare('NO_TLP',$this->NO_TLP,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	public function search2()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		if (!empty($this->from_date) && empty($this->to_date))
+		{
+			$criteria->condition = "TGL_PENGADAAN>='$this->from_date'";
+			$criteria->compare('NAMA_TOKO',$this->NAMA_TOKO, true);
+			$criteria->compare('STATUS',$this->STATUS, true);
+		}
+		else if (empty($this->from_date) && !empty($this->to_date))
+		{
+			$criteria->condition = "TGL_PENGADAAN<='$this->to_date'";
+			$criteria->compare('NAMA_TOKO',$this->NAMA_TOKO, true);
+			$criteria->compare('STATUS',$this->STATUS, true);
+		}
+		else if (!empty($this->from_date) && !empty($this->to_date))
+		{
+			$criteria->condition = "TGL_PENGADAAN>='$this->from_date' and TGL_PENGADAAN<='$this->to_date'";
+			$criteria->compare('NAMA_TOKO',$this->NAMA_TOKO, true);
+			$criteria->compare('STATUS',$this->STATUS, true);
+		}
+		else 
+			{
+				$criteria->compare('NAMA_TOKO',$this->NAMA_TOKO, true);
+				$criteria->compare('STATUS',$this->STATUS, true);
+			}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

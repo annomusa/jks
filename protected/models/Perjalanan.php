@@ -27,6 +27,10 @@ class Perjalanan extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+
+	public $from_date;
+	public $to_date;
+
 	public function tableName()
 	{
 		return 'perjalanan';
@@ -46,7 +50,7 @@ class Perjalanan extends CActiveRecord
 			array('STATUS', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_PERJALANAN, ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, TGL_PERJALANAN, NO_SURAT_PO, JENIS_PERINTAH, RITASE, TITIPAN_AWAL, LEBIH, KURANG, AKHIR, STATUS', 'safe', 'on'=>'search'),
+			array('ID_PERJALANAN, ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, TGL_PERJALANAN, NO_SURAT_PO, JENIS_PERINTAH,from_date, to_date, RITASE, TITIPAN_AWAL, LEBIH, KURANG, AKHIR, STATUS', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -115,6 +119,41 @@ class Perjalanan extends CActiveRecord
 		$criteria->compare('LEBIH',$this->LEBIH);
 		$criteria->compare('KURANG',$this->KURANG);
 		$criteria->compare('AKHIR',$this->AKHIR);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	public function search2()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		if (!empty($this->from_date) && empty($this->to_date))
+		{
+			$criteria->condition = "TGL_PERJALANAN>='$this->from_date'";
+			$criteria->compare('ID_PENERBIT',$this->ID_PENERBIT);
+			$criteria->compare('ID_KENDARAAN',$this->ID_KENDARAAN);
+		}
+		else if (empty($this->from_date) && !empty($this->to_date))
+		{
+			$criteria->condition = "TGL_PERJALANAN<='$this->to_date'";
+			$criteria->compare('ID_PENERBIT',$this->ID_PENERBIT);
+			$criteria->compare('ID_KENDARAAN',$this->ID_KENDARAAN);
+		}
+		else if (!empty($this->from_date) && !empty($this->to_date))
+		{
+			$criteria->condition = "TGL_PERJALANAN>='$this->from_date' and TGL_PERJALANAN<='$this->to_date'";
+			$criteria->compare('ID_PENERBIT',$this->ID_PENERBIT);
+			$criteria->compare('ID_KENDARAAN',$this->ID_KENDARAAN);
+		}
+		else 
+			{
+				$criteria->compare('ID_PENERBIT',$this->ID_PENERBIT);
+				$criteria->compare('ID_KENDARAAN',$this->ID_KENDARAAN);
+			}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

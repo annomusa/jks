@@ -1252,3 +1252,114 @@ Stack trace:
 REQUEST_URI=/jks/index.php?r=karyawan/create
 HTTP_REFERER=http://localhost/jks/index.php?r=karyawan/create
 ---
+2015/09/29 15:38:40 [error] [exception.CException] exception 'CException' with message 'Property "Perjalanan.from_date" is not defined.' in C:\xampp2\htdocs\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp2\htdocs\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('from_date')
+#1 C:\xampp2\htdocs\yii\framework\web\helpers\CHtml.php(2728): CActiveRecord->__get('from_date')
+#2 C:\xampp2\htdocs\yii\framework\web\helpers\CHtml.php(2451): CHtml::resolveValue(Object(Perjalanan), 'from_date')
+#3 C:\xampp2\htdocs\yii\framework\web\helpers\CHtml.php(1533): CHtml::activeInputField('text', Object(Perjalanan), 'from_date', Array)
+#4 C:\xampp2\htdocs\jks\protected\views\perjalanan\_search.php(32): CHtml::activeTextField(Object(Perjalanan), 'from_date', Array, 'required')
+#5 C:\xampp2\htdocs\yii\framework\web\CBaseController.php(126): require('C:\\xampp2\\htdoc...')
+#6 C:\xampp2\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp2\\htdoc...', Array, true)
+#7 C:\xampp2\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp2\\htdoc...', Array, true)
+#8 C:\xampp2\htdocs\jks\protected\views\perjalanan\admin.php(34): CController->renderPartial('_search', Array)
+#9 C:\xampp2\htdocs\yii\framework\web\CBaseController.php(126): require('C:\\xampp2\\htdoc...')
+#10 C:\xampp2\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp2\\htdoc...', Array, true)
+#11 C:\xampp2\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp2\\htdoc...', Array, true)
+#12 C:\xampp2\htdocs\yii\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#13 C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php(197): CController->render('admin', Array)
+#14 C:\xampp2\htdocs\yii\framework\web\actions\CInlineAction.php(49): PerjalananController->actionAdmin()
+#15 C:\xampp2\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#16 C:\xampp2\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#17 C:\xampp2\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#18 C:\xampp2\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#19 C:\xampp2\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#20 C:\xampp2\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#21 C:\xampp2\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 C:\xampp2\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#24 C:\xampp2\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('perjalanan/admi...')
+#25 C:\xampp2\htdocs\yii\framework\base\CApplication.php(184): CWebApplication->processRequest()
+#26 C:\xampp2\htdocs\jks\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/jks/index.php?r=perjalanan/admin
+HTTP_REFERER=http://localhost/jks/index.php?r=perjalanan/admin
+---
+2015/09/29 15:44:09 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:09 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:17 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:17 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:21 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:21 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:24 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:24 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:46 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:46 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:51 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:51 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:53 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:53 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:54 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:54 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:54 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:54 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:54 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:54 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:55 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:55 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:55 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:44:55 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:45:07 [warning] [application] Failed to set unsafe attribute "from_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)
+2015/09/29 15:45:07 [warning] [application] Failed to set unsafe attribute "to_date" of "Perjalanan".
+in C:\xampp2\htdocs\jks\protected\controllers\PerjalananController.php (193)
+in C:\xampp2\htdocs\jks\index.php (13)

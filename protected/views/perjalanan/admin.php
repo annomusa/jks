@@ -28,11 +28,12 @@ $('.search-form form').submit(function(){
 
 <h1>Rekap PO</h1>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
+<div class="search-form">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
-)); ?>
+));
+
+?>
 </div><!-- search-form -->
 
 <?php 
@@ -40,7 +41,7 @@ $('.search-form form').submit(function(){
 $this->widget('bootstrap.widgets.TbGridView', array(
 		'id'=>'perjalanan-grid',
 		'type' => TbHtml::GRID_TYPE_HOVER,
-		'dataProvider'=>$model->search(),
+		'dataProvider'=>$model->search2(),
 		'template' => "{items}\n{pager}",
 		'columns'=>array(
 			array(
