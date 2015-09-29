@@ -26,6 +26,13 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'Pilih Privilege'); ?>
+		<?php $data = CHtml::listData(Privilege::model()->findAll(), 'ID_PRIVILEGE', 'NAMA_PRIVILEGE');
+        echo $form->dropDownList($model,'ID_PRIVILEGE', $data); ?>
+		<?php echo $form->error($model,'ID_PRIVILEGE'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'NO_HP'); ?>
 		<?php echo $form->textField($model,'NO_HP',array('size'=>15,'maxlength'=>15)); ?>
 		<?php echo $form->error($model,'NO_HP'); ?>
@@ -37,10 +44,15 @@
 		<?php echo $form->error($model,'ALAMAT'); ?>
 	</div>
 
+
 	<div class="row">
-		<?php echo $form->labelEx($model,'TGL_MASUK_KERJA'); ?>
-		<?php echo $form->textField($model,'TGL_MASUK_KERJA'); ?>
-		<?php echo $form->error($model,'TGL_MASUK_KERJA'); ?>
+		<?php echo CHtml::activeLabelEx($model,'Tanggal Masuk Kerja'); ?>
+		<?php echo CHtml::activeTextField($model,'TGL_MASUK_KERJA', array("id"=>"TGL_MASUK_KERJA")); ?>
+		<?php $this->widget('application.extensions.calendar.SCalendar',
+			array(
+				'inputField'=>'TGL_MASUK_KERJA',
+				'ifFormat'=>'%Y-%m-%d',
+		)); ?>
 	</div>
 
 	<div class="row">
