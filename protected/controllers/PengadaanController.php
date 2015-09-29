@@ -32,7 +32,7 @@ class PengadaanController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create', 'create2', 'create3','update','admin', 'lanjut', 'setuju'),
+				'actions'=>array('create', 'create2', 'create3','update','admin', 'lanjut', 'setuju', 'cetaklaporan'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -208,6 +208,99 @@ class PengadaanController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionCetaklaporan($tgl_awal, $tgl_akhir, $toko, $status)
+	{
+		$criteria=new CDbCriteria;
+
+		if (!empty($tgl_awal) && empty($tgl_akhir))
+		{
+			$criteria->condition = "TGL_PENGADAAN>='$tgl_awal'";
+		}
+		else if (empty($tgl_awal) && !empty($tgl_akhir))
+		{
+			$criteria->condition = "TGL_PENGADAAN<='$tgl_akhir'";
+		}
+		else if (!empty($tgl_awal) && !empty($tgl_akhir))
+		{
+			$criteria->condition = "TGL_PENGADAAN>='$tgl_awal' and TGL_PENGADAAN<='$tgl_akhir'";
+		}
+		$criteria->compare('NAMA_TOKO',$toko, true);
+		$criteria->compare('STATUS',$status);
+
+    	$model = Pengadaan::model()->findAll($criteria);
+
+    	$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        spl_autoload_register(array('YiiBase','autoload'));
+
+        $pdf->SetCreator(PDF_CREATOR);  
+ 
+        $pdf->SetTitle("Laporan Rekap Pengadaan");                
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->SetFont('helvetica', '', 8);
+        $pdf->SetTextColor(80,80,80);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->AddPage();
+        $pdf->setJPEGQuality(75);
+
+        $html = <<<EOD
+		<h1 align="center">LAPORAN PENGADAAN</h1>
+		<table align="left" border="1" cellpadding="2" cellspacing="0" vertical-align="middle">
+			<tbody>
+				<tr>
+					<td width="40" align="center">NO</td>
+					<td width="75" align="center">Nomor PO</td>
+					<td width="65" align="center">Tanggal Pengadaan</td>
+					<td width="175" align="center">Permintaan</td>
+					<td width="75" align="center">Nama Toko</td>
+					<td width="75" align="center">Harga Total</td>
+					<td width="125" align="center">Status</td>
+				</tr>
+EOD;
+		$no_urut = 0;
+		foreach ($model as $mod) {
+			
+		$no_urut++;
+
+		$tgl_peng = "";
+		if($mod->TGL_PENGADAAN!="0000-00-00")
+		{
+			$tgl_peng = date("d-M-y", strtotime($mod->TGL_PENGADAAN));
+		}
+		else $tgl_peng = '-';
+
+		$html .= <<<EOD
+				<tr>
+					<td width="40" align="center">$no_urut</td>
+					<td width="75" align="center">$mod->NO_PO</td>
+					<td width="65" align="center">$tgl_peng</td>
+					<td width="175" align="center">$mod->PERMINTAAN</td>
+					<td width="75" align="center">$mod->NAMA_TOKO</td>
+					<td width="75" align="center">$mod->HARGA_TOTAL</td>
+					<td width="125" align="center">$mod->STATUS</td>
+				</tr>
+EOD;
+		}
+		$html .= <<<EOD
+			</tbody>
+		</table>
+EOD;
+		
+		$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+
+		$filename = Yii::getPathOfAlias('webroot').'/laporan/pengadaan/rekap pengadaan tanggal '.date('d-M-y').'.pdf';
+
+        $pdf->Output($filename, 'F');
+        //Yii::app()->end();
+
+        $this->redirect(Yii::app()->request->baseUrl.'/laporan/pengadaan/rekap pengadaan tanggal '.date('d-M-y').'.pdf');
+
 	}
 
 	/**

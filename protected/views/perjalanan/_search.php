@@ -36,7 +36,7 @@
 	<div class="row">
 		<?php echo $form->label($model,'Tanggal Perjalanan'); ?>
 		<?php echo CHtml::activeTextField($model,'from_date', array("id"=>"from_date"), 'required'); ?>
-		&nbsp; s/d
+		&nbsp; s/d &nbsp;
 		<?php echo CHtml::activeTextField($model,'to_date', array("id"=>"to_date")); ?>
 		<?php $this->widget('application.extensions.calendar.SCalendar',
 			array(
@@ -101,7 +101,7 @@
 	</div>
 	-->
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php echo TbHtml::submitButton('Search'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

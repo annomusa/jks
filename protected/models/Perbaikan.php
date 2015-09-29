@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'perbaikan':
  * @property integer $ID_PERBAIKAN
- * @property integer $ID_KENDARAAN
+ * @property integer $ID_iDKENDARAAN
  * @property string $TGL_PERBAIKAN
  * @property string $KERUSAKAN
  * @property integer $ESTIMASI_WAKTU_PERBAIKAN
@@ -18,6 +18,11 @@ class Perbaikan extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+
+	public $from_date;
+	public $to_date;
+	public $NOPOL;
+
 	public function tableName()
 	{
 		return 'perbaikan';
@@ -37,7 +42,7 @@ class Perbaikan extends CActiveRecord
 			array('TGL_PERBAIKAN', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_PERBAIKAN, ID_KENDARAAN, TGL_PERBAIKAN, KERUSAKAN, ESTIMASI_WAKTU_PERBAIKAN, JENIS_PERBAIKAN, STATUS, PJ_MEKANIK', 'safe', 'on'=>'search'),
+			array('ID_PERBAIKAN, ID_KENDARAAN, TGL_PERBAIKAN, KERUSAKAN, ESTIMASI_WAKTU_PERBAIKAN, JENIS_PERBAIKAN, STATUS, PJ_MEKANIK, NOPOL, from_date, to_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -86,14 +91,29 @@ class Perbaikan extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('ID_PERBAIKAN',$this->ID_PERBAIKAN);
+		/*$criteria->compare('ID_PERBAIKAN',$this->ID_PERBAIKAN);
 		$criteria->compare('ID_KENDARAAN',$this->ID_KENDARAAN);
 		$criteria->compare('TGL_PERBAIKAN',$this->TGL_PERBAIKAN,true);
 		$criteria->compare('KERUSAKAN',$this->KERUSAKAN,true);
 		$criteria->compare('ESTIMASI_WAKTU_PERBAIKAN',$this->ESTIMASI_WAKTU_PERBAIKAN);
-		$criteria->compare('JENIS_PERBAIKAN',$this->JENIS_PERBAIKAN);
 		$criteria->compare('STATUS',$this->STATUS);
-		$criteria->compare('PJ_MEKANIK',$this->PJ_MEKANIK);
+		$criteria->compare('PJ_MEKANIK',$this->PJ_MEKANIK);*/
+
+		if (!empty($this->from_date) && empty($this->to_date))
+		{
+			$criteria->condition = "TGL_PERBAIKAN>='$this->from_date'";
+		}
+		else if (empty($this->from_date) && !empty($this->to_date))
+		{
+			$criteria->condition = "TGL_PERBAIKAN<='$this->to_date'";
+		}
+		else if (!empty($this->from_date) && !empty($this->to_date))
+		{
+			$criteria->condition = "TGL_PERBAIKAN>='$this->from_date' and TGL_PERBAIKAN<='$this->to_date'";
+		}
+		$criteria->with = array('iDKENDARAAN');
+		$criteria->compare('iDKENDARAAN.NOPOL',$this->NOPOL, true);
+		$criteria->compare('JENIS_PERBAIKAN',$this->JENIS_PERBAIKAN);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

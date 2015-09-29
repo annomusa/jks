@@ -20,6 +20,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.extensions.*',
 		'bootstrap.helpers.TbHtml',
 		'bootstrap.helpers.TbArray',
         'bootstrap.behaviors.TbWidget',

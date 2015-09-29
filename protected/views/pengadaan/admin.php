@@ -12,18 +12,6 @@ $this->menu=array(
 	//array('label'=>'Create Pengadaan', 'url'=>array('create')),
 );
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#pengadaan-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <h1>Rekap Pengadaan</h1>
@@ -35,6 +23,15 @@ $('.search-form form').submit(function(){
 
 ?>
 </div><!-- search-form -->
+
+<div align="right">
+	<?php
+		echo TbHtml::formActions(array(
+		TbHtml::linkButton('Cetak Laporan', array('submit'=>array('Cetaklaporan', 'tgl_awal'=>$model->from_date, 'tgl_akhir'=>$model->to_date, 'toko'=>$model->NAMA_TOKO, 'status'=>$model->STATUS),'target'=>'_blank','style' => 'text-decoration:none;','color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+		));
+	?>
+
+<p></p>
 
 <?php 
 $this->widget('bootstrap.widgets.TbGridView', array(
@@ -53,7 +50,14 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 				'name'=>'No Po', 'value'=>'$data->NO_PO'
 				),
 			array(
-				'name'=>'Tanggal Pengadaan', 'value'=>'$data->TGL_PENGADAAN'
+				'name'=>'Tanggal Pengadaan', 'value'=>function($data,$row)
+				{
+					if($data->TGL_PENGADAAN!="0000-00-00")
+					{
+						return date("d-M-y", strtotime($data->TGL_PENGADAAN));
+					}
+					else return '-';
+				}
 				),
 			array(
 				'name'=>'Permintaan', 'value'=>'$data->PERMINTAAN'

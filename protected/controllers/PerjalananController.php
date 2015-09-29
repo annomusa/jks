@@ -32,7 +32,7 @@ class PerjalananController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','create2', 'lanjut','create3','update','Pilihpenerbit','admin'),
+				'actions'=>array('create','create2', 'lanjut','create3','update','Pilihpenerbit','admin', 'cetaklaporan', 'cetakexcel'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -195,6 +195,136 @@ class PerjalananController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionCetaklaporan($penerbit, $nopol, $tgl_awal, $tgl_akhir)
+	{
+		$criteria=new CDbCriteria;
+
+		if (!empty($tgl_awal) && empty($tgl_akhir))
+		{
+			$criteria->condition = "TGL_PERJALANAN>='$tgl_awal'";
+		}
+		else if (empty($tgl_awal) && !empty($tgl_akhir))
+		{
+			$criteria->condition = "TGL_PERJALANAN<='$tgl_akhir'";
+		}
+		else if (!empty($tgl_awal) && !empty($tgl_akhir))
+		{
+			$criteria->condition = "TGL_PERJALANAN>='$tgl_awal' and TGL_PERJALANAN<='$tgl_akhir'";
+		}
+		$criteria->compare('ID_PENERBIT',$penerbit, true);
+		$criteria->compare('ID_KENDARAAN',$nopol);
+
+    	$model = Perjalanan::model()->findAll($criteria);
+
+    	$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        spl_autoload_register(array('YiiBase','autoload'));
+
+        $pdf->SetCreator(PDF_CREATOR);  
+ 
+        $pdf->SetTitle("Laporan Rekap Perjalanan");                
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->SetFont('helvetica', '', 8);
+        $pdf->SetTextColor(80,80,80);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->AddPage();
+        $pdf->setJPEGQuality(75);
+
+        $html = <<<EOD
+		<h1 align="center">LAPORAN PERJALANAN</h1>
+		<table align="left" border="1" cellpadding="2" cellspacing="0">
+			<tbody>
+				<tr>
+					<td width="25" align="center">NO</td>
+					<td width="75" align="center">Nama Penerbit</td>
+					<td width="65" align="center">Nopol Kendaraan</td>
+					<td width="55" align="center">Tanggal Perjalanan</td>
+					<td width="60" align="center">Nomor Surat PO</td>
+					<td width="75" align="center">Jenis Perintah</td>
+					<td width="40" align="center">Ritase</td>
+					<td width="40" align="center">Titipan Awal</td>
+					<td width="40" align="center">Lebih</td>
+					<td width="40" align="center">Kurang</td>
+					<td width="40" align="center">Akhir</td>
+					<td width="65" align="center">Status</td>
+				</tr>
+EOD;
+		$no_urut = 0;
+		foreach ($model as $mod) {
+			
+		$no_urut++;
+		$penerbit = $mod->iDPENERBIT->NAMA_PENERBIT;
+		$nopol = $mod->iDKENDARAAN->NOPOL;
+		$tgl_perj = "";
+		if($mod->TGL_PERJALANAN!="0000-00-00")
+		{
+			$tgl_perj = date("d-M-y", strtotime($mod->TGL_PERJALANAN));
+		}
+		else $tgl_perj = '-';
+
+		$html .= <<<EOD
+				<tr>
+					<td width="25" align="center">$no_urut</td>
+					<td width="75" align="center">$penerbit</td>
+					<td width="65" align="center">$nopol</td>
+					<td width="55" align="center">$tgl_perj</td>
+					<td width="60" align="center">$mod->NO_SURAT_PO</td>
+					<td width="75" align="center">$mod->JENIS_PERINTAH</td>
+					<td width="40" align="center">$mod->RITASE</td>
+					<td width="40" align="center">$mod->TITIPAN_AWAL</td>
+					<td width="40" align="center">$mod->LEBIH</td>
+					<td width="40" align="center">$mod->KURANG</td>
+					<td width="40" align="center">$mod->AKHIR</td>
+					<td width="65" align="center">$mod->STATUS</td>
+				</tr>
+EOD;
+		}
+		$html .= <<<EOD
+			</tbody>
+		</table>
+EOD;
+		
+		$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+
+		$filename = Yii::getPathOfAlias('webroot').'/laporan/PO/rekap perjalanan tanggal '.date('d-M-y').'.pdf';
+
+        $pdf->Output($filename, 'F');
+        //Yii::app()->end();
+
+        $this->redirect(Yii::app()->request->baseUrl.'/laporan/PO/rekap perjalanan tanggal '.date('d-M-y').'.pdf');
+
+	}
+
+	public function actionCetakexcel($penerbit, $nopol, $tgl_awal, $tgl_akhir)
+	{
+		$criteria=new CDbCriteria;
+
+		if (!empty($tgl_awal) && empty($tgl_akhir))
+		{
+			$criteria->condition = "TGL_PERJALANAN>='$tgl_awal'";
+		}
+		else if (empty($tgl_awal) && !empty($tgl_akhir))
+		{
+			$criteria->condition = "TGL_PERJALANAN<='$tgl_akhir'";
+		}
+		else if (!empty($tgl_awal) && !empty($tgl_akhir))
+		{
+			$criteria->condition = "TGL_PERJALANAN>='$tgl_awal' and TGL_PERJALANAN<='$tgl_akhir'";
+		}
+		$criteria->compare('ID_PENERBIT',$penerbit, true);
+		$criteria->compare('ID_KENDARAAN',$nopol);
+
+    	$model = Perjalanan::model()->findAll($criteria);
+
+    	$this->render('exportexcel', array(
+			'model'=>$model,
+			));
 	}
 
 	/**

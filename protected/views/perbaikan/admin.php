@@ -3,42 +3,33 @@
 /* @var $model Perbaikan */
 
 $this->breadcrumbs=array(
-	'Perbaikans'=>array('index'),
-	'Manage',
+	'Perbaikan'=>array('index'),
+	'Rekap Perbaikan',
 );
 
-$this->menu=array(
+/*$this->menu=array(
 	array('label'=>'List Perbaikan', 'url'=>array('index')),
 	array('label'=>'Create Perbaikan', 'url'=>array('create')),
-);
+);*/
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#perbaikan-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
-<h1>Manage Perbaikans</h1>
+<h1>Rekap Perbaikan</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
+<div class="search-form">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
+
+<div align="right">
+	<?php
+		echo TbHtml::formActions(array(
+		TbHtml::linkButton('Cetak Laporan', array('submit'=>array('Cetaklaporan', 'nopol'=>$model->NOPOL, 'tgl_awal'=>$model->from_date, 'tgl_akhir'=>$model->to_date, 'jenis'=>$model->JENIS_PERBAIKAN),'target'=>'_blank','style' => 'text-decoration:none;','color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+		));
+	?>
+
+<p></p>
 
 <?php 
 $this->widget('bootstrap.widgets.TbGridView', array(
@@ -54,7 +45,14 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 				'name'=>'NOPOL Kendaraan', 'value'=>'$data->iDKENDARAAN->NOPOL'
 				),
 			array(
-				'name'=>'Tanggal Perbaikan', 'value'=>'$data->TGL_PERBAIKAN'
+				'name'=>'Tanggal Perbaikan', 'value'=>function($data,$row)
+				{
+					if($data->TGL_PERBAIKAN!="0000-00-00")
+					{
+						return date("d-M-y", strtotime($data->TGL_PERBAIKAN));
+					}
+					else return '-';
+				}
 				),
 			array(
 				'name'=>'Kerusakan', 'value'=>'$data->KERUSAKAN'

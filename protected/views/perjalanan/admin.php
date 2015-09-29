@@ -12,18 +12,6 @@ $this->menu=array(
 	//array('label'=>'Create Perjalanan', 'url'=>array('create')),
 );
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#perjalanan-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <h1>Rekap PO</h1>
@@ -35,6 +23,16 @@ $('.search-form form').submit(function(){
 
 ?>
 </div><!-- search-form -->
+
+<div align="right">
+	<?php
+		echo TbHtml::formActions(array(
+		TbHtml::linkButton('Cetak Laporan Pdf', array('submit'=>array('Cetaklaporan', 'penerbit'=>$model->ID_PENERBIT, 'nopol'=>$model->ID_KENDARAAN, 'tgl_awal'=>$model->from_date, 'tgl_akhir'=>$model->to_date),'target'=>'_blank','style' => 'text-decoration:none;','color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+		TbHtml::linkButton('Cetak Laporan Excel', array('submit'=>array('Cetakexcel', 'penerbit'=>$model->ID_PENERBIT, 'nopol'=>$model->ID_KENDARAAN, 'tgl_awal'=>$model->from_date, 'tgl_akhir'=>$model->to_date),'target'=>'_blank','style' => 'text-decoration:none;','color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+		));
+	?>
+
+<p></p>
 
 <?php 
 
@@ -57,7 +55,14 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 				'name'=>'NOPOL Kendaraan', 'value'=>'$data->iDKENDARAAN->NOPOL'
 				),
 			array(
-				'name'=>'Tanggal Perjalanan', 'value'=>'$data->TGL_PERJALANAN'
+				'name'=>'Tanggal Perjalanan', 'value'=>function($data,$row)
+				{
+					if($data->TGL_PERJALANAN!="0000-00-00")
+					{
+						return date("d-M-y", strtotime($data->TGL_PERJALANAN));
+					}
+					else return '-';
+				}
 				),
 			array(
 				'name'=>'NO Surat PO', 'value'=>'$data->NO_SURAT_PO'
