@@ -7,10 +7,11 @@ $this->breadcrumbs=array(
 	$model->ID_RELASI_PO,
 );
 
+$model2 = Perjalanan::model()->findByPk($id);
 
 ?>
 
-<h1>Daftar Tujuan PO Perjalanan # <?php echo $id ?></h1>
+<h1>Daftar Tujuan PO Perjalanan # <?php echo $id." - ".$model2->iDKENDARAAN->NOPOL ?></h1>
 
 <?php 
 $this->widget('bootstrap.widgets.TbGridView', array(
@@ -23,17 +24,16 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 			'header'=>'No',   'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
 			),
 			array(
-				'name'=>'ID Perjalanan', 'value'=>'$data->ID_PERJALANAN'
+				'name'=>'Tujuan', 'value'=>'$data->iDONGKOS->TUJUAN',
+				'footer'=>"Total Ritase: "
 				),
 			array(
-				'name'=>'ID Ongkos', 'value'=>'$data->ID_ONGKOS'
+				'name'=>'Ongkos',  'value'=>'$data->iDONGKOS->HARGA',
+				'footer'=>RelasiPo::model()->hitungtotalongkos($model->search2($id)->getData())
 				),
 			array(
-				'name'=>'Tujuan', 'value'=>'$data->iDONGKOS->TUJUAN'
-				),
-			array(
-				'name'=>'Ongkos', 'value'=>'$data->iDONGKOS->HARGA'
-				),
+				'header'=>'Aksi', 'type'=>'raw', 'value'=>'CHtml::link(\'batal\', array(\'relasi_po/batal\', \'id\'=>$data->ID_RELASI_PO,\'perj\'=>$_GET[\'id\']))'
+			),
 			),
 		)); 
 ?>

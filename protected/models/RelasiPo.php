@@ -120,4 +120,13 @@ class RelasiPo extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function hitungtotalongkos($records)
+	{
+		$jumlah = 0;
+		foreach ($records as $rekam_data) {
+			$jumlah += $rekam_data->iDONGKOS->HARGA;
+		}
+		return $jumlah;
+	}
 }

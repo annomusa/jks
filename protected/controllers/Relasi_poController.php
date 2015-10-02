@@ -32,7 +32,7 @@ class Relasi_poController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','batal','view2'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -50,6 +50,13 @@ class Relasi_poController extends Controller
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
+	public function actionView2($id)
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
@@ -115,6 +122,21 @@ class Relasi_poController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+	public function actionBatal($id, $perj)
+	{
+		$models = Perjalanan::model()->findByPk($perj);
+		$model=$this->loadModel($id); 
+		$ritasebaru = $models->RITASE - $model->iDONGKOS->HARGA;
+
+		Perjalanan::model()->updateByPk($perj,array("RITASE"=>$ritasebaru));
+
+		$this->loadModel($id)->delete();
+
+		$this->redirect(array('perjalanan/create2','id'=>$perj));
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		
 	}
 
 	/**

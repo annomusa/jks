@@ -7,7 +7,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	//array('label'=>'Buat Data Ongkos Baru', 'url'=>array('create')),
+	array('label'=>'Buat Data Ongkos Baru', 'url'=>array('create2')),
 	//array('label'=>'Manage Ongkos', 'url'=>array('admin')),
 );
 ?>
@@ -20,7 +20,19 @@ $this->menu=array(
 	'filter'=>$model,
 	'columns'=>array(
 		'ID_ONGKOS',
-		'ID_SATUAN',
+		array(
+			'header'=>'Satuan', 'value'=>'$data->iDSATUAN->SATUAN'
+		),
+		array(
+				'header'=>"Jenis Ongkos", 'value'=>function($data,$row)
+				{
+					if($data->JENIS_ONGKOS==0)
+					{
+						return "POKOK";
+					}
+					else return 'TAMBAHAN';
+				}
+		),
 		'TUJUAN',
 		'HARGA',
 		array(

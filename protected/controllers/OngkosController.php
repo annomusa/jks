@@ -32,7 +32,7 @@ class OngkosController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','insert'),
+				'actions'=>array('create', 'create2', 'create3', 'create4','update', 'update2','insert'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -79,6 +79,63 @@ class OngkosController extends Controller
 		));
 	}
 
+	public function actionCreate4($id)
+	{
+		$model=new Ongkos;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Ongkos']))
+		{
+			$model->attributes=$_POST['Ongkos'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->ID_ONGKOS));
+		}
+
+		$this->render('create',array(
+			'model'=>$model, 'message'=>$id
+		));
+	}
+
+	public function actionCreate2()
+	{
+		$model=new Ongkos;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Ongkos']))
+		{
+			$model->attributes=$_POST['Ongkos'];
+			if($model->save())
+				$this->redirect(array('index'));
+		}
+
+		$this->render('create2',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionCreate3($perj)
+	{
+		$model=new Ongkos;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Ongkos']))
+		{
+			$model->attributes=$_POST['Ongkos'];
+			if($model->save())
+				$this->redirect(array('perjalanan/create2','id'=>$perj));
+		}
+
+		$this->render('create3',array(
+			'model'=>$model,
+		));
+	}
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -95,10 +152,29 @@ class OngkosController extends Controller
 		{
 			$model->attributes=$_POST['Ongkos'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID_ONGKOS));
+				$this->redirect(array('index'));
 		}
 
 		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionUpdate2($id, $perj)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Ongkos']))
+		{
+			$model->attributes=$_POST['Ongkos'];
+			if($model->save())
+				$this->redirect(array('perjalanan/create2','id'=>$perj));
+		}
+
+		$this->render('update2',array(
 			'model'=>$model,
 		));
 	}

@@ -31,12 +31,12 @@ class Ongkos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID_SATUAN, TUJUAN, HARGA', 'required'),
-			array('ID_SATUAN, HARGA', 'numerical', 'integerOnly'=>true),
+			array('ID_SATUAN, JENIS_ONGKOS, TUJUAN, HARGA', 'required'),
+			array('ID_SATUAN, JENIS_ONGKOS, HARGA', 'numerical', 'integerOnly'=>true),
 			array('TUJUAN', 'length', 'max'=>25),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_ONGKOS, ID_SATUAN, TUJUAN, HARGA', 'safe', 'on'=>'search'),
+			array('ID_ONGKOS, ID_SATUAN, JENIS_ONGKOS, TUJUAN, HARGA', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +61,7 @@ class Ongkos extends CActiveRecord
 		return array(
 			'ID_ONGKOS' => 'Id Ongkos',
 			'ID_SATUAN' => 'Id Satuan',
+			'JENIS_ONGKOS' => 'Jenis Ongkos',
 			'TUJUAN' => 'Tujuan',
 			'HARGA' => 'Harga',
 		);
@@ -86,6 +87,7 @@ class Ongkos extends CActiveRecord
 
 		$criteria->compare('ID_ONGKOS',$this->ID_ONGKOS);
 		$criteria->compare('ID_SATUAN',$this->ID_SATUAN);
+		$criteria->compare('JENIS_ONGKOS',$this->JENIS_ONGKOS);
 		$criteria->compare('TUJUAN',$this->TUJUAN,true);
 		$criteria->compare('HARGA',$this->HARGA);
 
@@ -94,6 +96,43 @@ class Ongkos extends CActiveRecord
 		));
 	}
 
+	public function search2()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ID_ONGKOS',$this->ID_ONGKOS);
+		$criteria->compare('ID_SATUAN',$this->ID_SATUAN);
+		$criteria->compare('JENIS_ONGKOS',$this->JENIS_ONGKOS);
+		$criteria->compare('TUJUAN',$this->TUJUAN,true);
+		$criteria->compare('HARGA',$this->HARGA);
+
+		$criteria->condition = "JENIS_ONGKOS=0";
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	public function search3()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('ID_ONGKOS',$this->ID_ONGKOS);
+		$criteria->compare('ID_SATUAN',$this->ID_SATUAN);
+		$criteria->compare('JENIS_ONGKOS',$this->JENIS_ONGKOS);
+		$criteria->compare('TUJUAN',$this->TUJUAN,true);
+		$criteria->compare('HARGA',$this->HARGA);
+
+		$criteria->condition = "JENIS_ONGKOS=1";
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

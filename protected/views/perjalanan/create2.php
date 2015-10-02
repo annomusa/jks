@@ -43,7 +43,7 @@ $('.search-form form').submit(function(){
 $isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_po')->where('ID_PERJALANAN=:ID_PERJALANAN',array(':ID_PERJALANAN'=>"$model->ID_PERJALANAN"))->queryScalar();
 
 
-if($isi!=NULL)
+if($isi!=0)
 {
 	echo "Sudah selesai?";
 	echo "\r\n";

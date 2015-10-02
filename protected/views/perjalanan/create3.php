@@ -7,10 +7,6 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Perjalanan', 'url'=>array('index')),
-	array('label'=>'Manage Perjalanan', 'url'=>array('admin')),
-);
 ?>
 
 <?php
@@ -28,7 +24,15 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-<h1>Buat PO Perjalanan Baru - Step 3 : Persetujuan ongkos</h1>
+<h1>Buat PO Perjalanan Baru - Step 3 : Pengisian Titipan Awal dan Tambahan</h1>
+
+<?php
+	$this->renderPartial('/relasi_po/view2', array('model'=>RelasiPo::model(), "id"=>$model->ID_PERJALANAN));
+?>
+
+<?php
+	$this->renderPartial('/ongkos/create4', array('model'=>Ongkos::model(), "id"=>$model->ID_PERJALANAN));
+?>
 
 <div class="form">
 
@@ -49,7 +53,7 @@ $('.search-form form').submit(function(){
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'RITASE'); ?>
-		<?php echo $form->textField($model,'RITASE',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'RITASE',array('size'=>25,'maxlength'=>25, 'readonly'=>true)); ?>
 		<?php echo $form->error($model,'RITASE'); ?>
 	</div>
 

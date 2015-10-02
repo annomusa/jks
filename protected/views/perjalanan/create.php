@@ -69,7 +69,7 @@ echo TbHtml::submitButton('Buat Penerbit', array('submit'=> array("penerbit/crea
 	-->
 	<div class="row">
 		<?php echo $form->labelEx($model,'Pilih Supir / Kendaraan'); ?>
-		<?php $data = CHtml::listData(Kendaraan::model()->findAll(), 'ID_KENDARAAN', 'ID_KARYAWAN');
+		<?php $data = CHtml::listData(Kendaraan::model()->findAll(), 'ID_KENDARAAN', 'NOPOL');
         echo $form->dropDownList($model,'ID_KENDARAAN', $data); ?>
 		<?php echo $form->error($model,'ID_KENDARAAN'); ?>
 	</div>
@@ -97,7 +97,7 @@ echo TbHtml::submitButton('Buat Penerbit', array('submit'=> array("penerbit/crea
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Buat' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
