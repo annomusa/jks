@@ -7,39 +7,42 @@ $this->breadcrumbs=array(
 	'Buat Perjalanan Baru',
 );
 
-// $this->menu=array(
+$this->menu=array(
 // 	array('label'=>'List Perjalanan', 'url'=>array('index')),
 // 	array('label'=>'Manage Perjalanan', 'url'=>array('admin')),
-// );
+);
 ?>
 
 <?php
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#material-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
+// Yii::app()->clientScript->registerScript('search', "
+// $('.search-button').click(function(){
+// 	$('.search-form').toggle();
+// 	return false;
+// });
+// $('.search-form form').submit(function(){
+// 	$('#material-grid').yiiGridView('update', {
+// 		data: $(this).serialize()
+// 	});
+// 	return false;
+// });
+// ");
 ?>
+
 <h1>Buat PO Perjalanan Baru - Step 1 : Isi informasi Perjalanan</h1>
+
 <p class="note">Jika penerbit belum terdapat pada daftar, klik tombol Buat Penerbit</p>
+
+<button type="button" class="btn btn-default">
+	<?php echo CHtml::link('Buat Penerbit',array('/penerbit/create')); ?>
+</button>
+
 <?php 
-echo TbHtml::submitButton('Buat Penerbit', array('submit'=> array("penerbit/create")));
+//echo TbHtml::submitButton('Buat Penerbit', array('submit'=> array("penerbit/create")));
 	//,'color' => TbHtml::BUTTON_COLOR_PRIMARY));
 ?>
 <div class="form">
 
 <?php 
-	
-	
-
 	$form=$this->beginWidget('CActiveForm', array(
 	'id'=>'perjalanan-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
@@ -49,7 +52,6 @@ echo TbHtml::submitButton('Buat Penerbit', array('submit'=> array("penerbit/crea
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<br>
 	<p class="note">Kolom dengan tanda <span class="required">*</span> harus diisi.</p>
 
 	<?php echo $form->errorSummary($model); ?>
@@ -101,3 +103,5 @@ echo TbHtml::submitButton('Buat Penerbit', array('submit'=> array("penerbit/crea
 	</div>
 
 <?php $this->endWidget(); ?>
+
+</div>

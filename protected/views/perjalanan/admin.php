@@ -17,9 +17,8 @@ $this->menu=array(
 <h1>Rekap PO</h1>
 
 <div class="search-form">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-));
+<?php 
+	$this->renderPartial('_search',array('model'=>$model,));
 
 ?>
 </div><!-- search-form -->
