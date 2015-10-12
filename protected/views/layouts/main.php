@@ -121,6 +121,9 @@
 		            			<?php echo CHtml::link('Data Administrator',array('/admin/index')); ?>
 			            		</li>
 			            		<li>
+		            			<?php echo CHtml::link('Data Ban',array('/ban/admin')); ?>
+			            		</li>
+			            		<li>
 		            			<?php echo CHtml::link('Data Satuan',array('/satuan/index')); ?>
 			            		</li>
 			            		<li>

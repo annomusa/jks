@@ -92,11 +92,18 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 					}
 					else if($data->STATUS=="Ganti Sparepart")
 					{
-						return TbHtml::link("Ganti Sparepart", array("view", "id"=>$data->ID_PERBAIKAN),array('style' => 'font-weight:900;text-decoration:none;'));
+						if(strpos(strtoupper($data->KERUSAKAN), 'BAN')!==false)
+							return TbHtml::link("Ganti Sparepart", array("ban/index", "id"=>$data->ID_PERBAIKAN),array('style' => 'font-weight:900;text-decoration:none;'));
+						else
+							return TbHtml::link("Ganti Sparepart", array("view", "id"=>$data->ID_PERBAIKAN),array('style' => 'font-weight:900;text-decoration:none;'));
 					}
 					else if($data->STATUS=="Ke Mekanik dan Ganti Sparepart")
 					{
 						return TbHtml::link("Ke Mekanik dan Ganti Sparepart", array("view", "id"=>$data->ID_PERBAIKAN),array('style' => 'font-weight:900;text-decoration:none;'));
+					}
+					else if($data->STATUS=="SELESAI")
+					{
+						return TbHtml::link("Lihat Detail", array("admin"),array('style' => 'font-weight:900;text-decoration:none;'));
 					}
 				}
 				),

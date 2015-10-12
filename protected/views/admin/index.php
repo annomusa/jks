@@ -24,13 +24,13 @@ $this->menu=array(
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'ID_ADMIN',
 		'NAMA',
 		'USERNAME',
 		'PASSWORD',
 		'PRIVILEGE',
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{update}{delete}',
 		),
 	),
 )); ?>
