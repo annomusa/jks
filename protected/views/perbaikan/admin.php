@@ -81,6 +81,16 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 				'name'=>'Status', 'value'=>'$data->STATUS'
 				),
 			array(
+<<<<<<< .mine
+				'name'=>'PJ Mekanik', 'value'=>function($data,$row)
+				{
+					if($data->pJMEKANIK==NULL)
+					{
+						return "";
+					}
+					else return $data->pJMEKANIK->NAMA;
+				}
+=======
 				'name'=>'PJ Mekanik', 'value'=>function($data, $row)
 				{
 					if($data->pJMEKANIK==NULL)
@@ -88,6 +98,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 					else
 						return $data->pJMEKANIK->NAMA;
 				}
+>>>>>>> .r34
 				),
 			array(
 				'name'=>'Aksi', 'type'=>'raw', 'value'=>function($data, $row)

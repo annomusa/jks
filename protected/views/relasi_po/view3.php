@@ -44,21 +44,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 				'name'=>'Ongkos',  'value'=>'$data->iDONGKOS->HARGA',
 				'footer'=>RelasiPo::model()->hitungtotalongkos($model->search2($id)->getData())
 				),
-			array(
-				'header'=>'Aksi', 'type'=>'raw', 'value'=>function($data,$row)
-				{
-					if($data->iDONGKOS->JENIS_ONGKOS==0)
-					{
-						return "";
-					}
-					else if($data->iDONGKOS->JENIS_ONGKOS==1)
-					{
-						return CHtml::link('batal', array('relasi_po/batal2', 'id'=>$data->ID_RELASI_PO,'perj'=>$_GET['id']));
-					}
-					
-				}
-				
-			),
 			),
 		)); 
 ?>

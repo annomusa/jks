@@ -45,7 +45,9 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 			'header'=>'No',   'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
 			),
 			array(
-				'name'=>'Nama Penerbit', 'value'=>'$data->iDPENERBIT->NAMA_PENERBIT'
+				'name'=>'Nama Penerbit', 'value'=>'$data->iDPENERBIT->NAMA_PENERBIT',
+				'footer'=>"Total :",
+				'footerHtmlOptions'=> array('style'=>'color:red;font-weight:bold;'),
 				),
 			array(
 				'name'=>'NOPOL Kendaraan', 'value'=>'$data->iDKENDARAAN->NOPOL'
@@ -67,19 +69,34 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 				'name'=>'Jenis Perintah', 'value'=>'$data->JENIS_PERINTAH'
 				),
 			array(
-				'name'=>'Ritase', 'value'=>'$data->RITASE'
+				'name'=>'Titipan Awal', 'value'=>'$data->TITIPAN_AWAL',
+				'footer'=>Perjalanan::model()->hitungtotalawal($model->search2()->getData()),
+				'footerHtmlOptions'=> array('style'=>'color:red;font-weight:bold;'),
 				),
 			array(
-				'name'=>'Titipan Awal', 'value'=>'$data->TITIPAN_AWAL'
+				'name'=>'Ritase', 'value'=>'$data->RITASE', 'htmlOptions'=>array('style'=>'color:red;'),
+				'footer'=>Perjalanan::model()->hitungtotalritase($model->search2()->getData()),
+				'footerHtmlOptions'=> array('style'=>'color:red;font-weight:bold;'),
 				),
 			array(
-				'name'=>'Lebih', 'value'=>'$data->LEBIH'
+				'name'=>'Tambahan', 'value'=>'$data->TAMBAHAN' , 'htmlOptions'=>array('style'=>'color:red;'),
+				'footer'=>Perjalanan::model()->hitungtotaltambahan($model->search2()->getData()),
+				'footerHtmlOptions'=> array('style'=>'color:red;font-weight:bold;'),
 				),
 			array(
-				'name'=>'Kurang', 'value'=>'$data->KURANG'
+				'name'=>'Sisa', 'value'=>'$data->SISA', 'htmlOptions'=>array('style'=>'color:red;'),
+				'footer'=>Perjalanan::model()->hitungtotalsisa($model->search2()->getData()),
+				'footerHtmlOptions'=> array('style'=>'color:red;font-weight:bold;'),
 				),
 			array(
-				'name'=>'Akhir', 'value'=>'$data->AKHIR'
+				'name'=>'Uang Diberikan', 'value'=>'$data->UANG_DIBERIKAN',
+				'footer'=>Perjalanan::model()->hitungtotalberi($model->search2()->getData()),
+				'footerHtmlOptions'=> array('style'=>'color:red;font-weight:bold;'),
+				),
+			array(
+				'name'=>'Uang Dibawa', 'value'=>'$data->UANG_DIBAWA',
+				'footer'=>Perjalanan::model()->hitungtotalbawa($model->search2()->getData()),
+				'footerHtmlOptions'=> array('style'=>'color:red;font-weight:bold;'),
 				),
 			array(
 				'name'=>'Status', 'value'=>'$data->STATUS'
@@ -93,7 +110,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 					}
 					else if($data->STATUS=="TUJUAN TERISI")
 					{
-						return TbHtml::link("Finalisasi", array("create3", "id"=>$data->ID_PERJALANAN),array('style' => 'font-weight:900;text-decoration:none;'));
+						return TbHtml::link("Lengkapi Tambahan dan Uang Awal", array("create3", "id"=>$data->ID_PERJALANAN),array('style' => 'font-weight:900;text-decoration:none;'));
+					}
+					else if($data->STATUS=="TAMBAHAN DAN UANG AWAL TERISI")
+					{
+						return TbHtml::link("Finalisasi", array("create4", "id"=>$data->ID_PERJALANAN),array('style' => 'font-weight:900;text-decoration:none;'));
 					}
 					else if($data->STATUS=="SELESAI")
 					{

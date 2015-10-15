@@ -27,10 +27,10 @@
 			'value'=>'$data->HARGA'
 			),
 		array(
-				'header'=>'Edit', 'type'=>'raw', 'value'=>'CHtml::link(\'edit\', array(\'ongkos/update2\', \'id\'=>$data->ID_ONGKOS,\'perj\'=>$_GET[\'id\']))'
+				'header'=>'Edit', 'type'=>'raw', 'value'=>'CHtml::link(\'edit\', array(\'ongkos/update3\', \'id\'=>$data->ID_ONGKOS,\'perj\'=>$_GET[\'id\']))'
 			),
 		array(
-				'header'=>'Aksi', 'type'=>'raw', 'value'=>'CHtml::link(\'pilih\', array(\'ongkos/insert\', \'id\'=>$data->ID_ONGKOS,\'perj\'=>$_GET[\'id\']))'
+				'header'=>'Aksi', 'type'=>'raw', 'value'=>'CHtml::link(\'pilih\', array(\'ongkos/insert2\', \'id\'=>$data->ID_ONGKOS,\'perj\'=>$_GET[\'id\']))'
 			)
 	),
 ));

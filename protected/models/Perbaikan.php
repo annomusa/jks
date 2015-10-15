@@ -120,6 +120,12 @@ class Perbaikan extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+            		'defaultOrder'=>'TGL_PERBAIKAN DESC',
+            		),
+			'pagination'=> array(
+				'pageSize'=>'10'
+				),
 		));
 	}
 
