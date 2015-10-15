@@ -103,7 +103,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 					}
 					else if($data->STATUS=="SELESAI")
 					{
-						return TbHtml::link("Lihat Detail", array("admin"),array('style' => 'font-weight:900;text-decoration:none;'));
+						$id_rpb = Yii::app()->db->createCommand()->select('ID_RELASI_PB')
+		                    ->from('relasi_pb')
+		                    ->where('ID_PERBAIKAN=:ID_PERBAIKAN', array(':ID_PERBAIKAN'=>$data->ID_PERBAIKAN))
+		                    ->queryScalar();
+						return TbHtml::link("Lihat Detail", array("/relasiPb/admin", "id"=>$data->ID_PERBAIKAN),array('style' => 'font-weight:900;text-decoration:none;'));
 					}
 				}
 				),
