@@ -207,6 +207,10 @@ class BanController extends Controller
         $relasi = RelasiPb::model()->findByPk($model->ID_RELASI_PB);
         $relasi->delete();
 
+        Yii::app()->db->createCommand()->update('perbaikan', array(
+            'STATUS'=>'Ganti Ban',
+            ), 'ID_PERBAIKAN=:ID_PERBAIKAN', array(':ID_PERBAIKAN'=>$id));
+
         $this->redirect(array('ban/index','id'=>$id));
 	}
 

@@ -78,11 +78,17 @@ class PerbaikanController extends Controller
 				}
 				else if($model->JENIS_PERBAIKAN=="1")
 				{
-					Perbaikan::model()->updateByPk($model->ID_PERBAIKAN,array('STATUS'=>"Ganti Sparepart"));
+					if($model->JENIS_PENGGANTIAN==0)
+						Perbaikan::model()->updateByPk($model->ID_PERBAIKAN,array('STATUS'=>"Ganti Sparepart"));
+					else
+						Perbaikan::model()->updateByPk($model->ID_PERBAIKAN,array('STATUS'=>"Ganti Ban"));
 				}
 				else if($model->JENIS_PERBAIKAN=="2")
 				{
-					Perbaikan::model()->updateByPk($model->ID_PERBAIKAN,array('STATUS'=>"Ke Mekanik dan Ganti Sparepart"));
+					if($model->JENIS_PENGGANTIAN==0)
+						Perbaikan::model()->updateByPk($model->ID_PERBAIKAN,array('STATUS'=>"Ke Mekanik dan Ganti Sparepart"));
+					else
+						Perbaikan::model()->updateByPk($model->ID_PERBAIKAN,array('STATUS'=>"Ganti Ban"));
 				}
 				$this->redirect(array('admin'));	
 			}

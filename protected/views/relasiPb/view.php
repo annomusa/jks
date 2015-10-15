@@ -11,7 +11,7 @@
 	'columns'=>array(
 	array(
 		'header'=>'Tanggal Perbaikan',
-		'value'=>'$data->iDPERBAIKAN->TGL_PERBAIKAN',
+		'value'=>'date("d-M-y", strtotime($data->iDPERBAIKAN->TGL_PERBAIKAN))',
 		),
 	array(
 		'header'=>'Nomor Seri Ban',

@@ -4,7 +4,7 @@
 <?php
 	
 	$id = $_GET['id'];
-	$this->widget('zii.widgets.grid.CGridView', array(
+	$this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'relasi-pb-grid',
 	'dataProvider'=>$model->carirekap($id),
 	'filter'=>$model,
