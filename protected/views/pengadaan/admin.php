@@ -44,9 +44,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 			'header'=>'No',   'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
 			),
 			array(
-				'name'=>'ID Pengadaan', 'value'=>'$data->ID_PENGADAAN'
-				),
-			array(
 				'name'=>'No Po', 'value'=>'$data->NO_PO'
 				),
 			array(
