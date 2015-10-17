@@ -95,7 +95,7 @@ class SiteController extends Controller
 				$this->redirect('index.php?r=site/index');
 		}
 		// display the login form
-		$this->renderPartial('login',array('model'=>$model));
+		$this->renderPartial('login2',array('model'=>$model));
 
 	}
 
