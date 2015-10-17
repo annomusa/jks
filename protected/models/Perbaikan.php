@@ -22,6 +22,7 @@ class Perbaikan extends CActiveRecord
 	public $from_date;
 	public $to_date;
 	public $NOPOL;
+	public $JENIS_PENGGANTIAN;
 
 	public function tableName()
 	{
@@ -37,12 +38,12 @@ class Perbaikan extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID_KENDARAAN, TGL_PERBAIKAN, JENIS_PERBAIKAN', 'required'),
-			array('ID_KENDARAAN, ESTIMASI_WAKTU_PERBAIKAN, PJ_MEKANIK', 'numerical', 'integerOnly'=>true),
+			array('ID_KENDARAAN, ESTIMASI_WAKTU_PERBAIKAN, PJ_MEKANIK, JENIS_PENGGANTIAN', 'numerical', 'integerOnly'=>true),
 			array('KERUSAKAN, JENIS_PERBAIKAN, STATUS', 'length', 'max'=>50),
 			array('TGL_PERBAIKAN', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_PERBAIKAN, ID_KENDARAAN, TGL_PERBAIKAN, KERUSAKAN, ESTIMASI_WAKTU_PERBAIKAN, JENIS_PERBAIKAN, STATUS, PJ_MEKANIK, NOPOL, from_date, to_date', 'safe', 'on'=>'search'),
+			array('ID_PERBAIKAN, ID_KENDARAAN, TGL_PERBAIKAN, KERUSAKAN, ESTIMASI_WAKTU_PERBAIKAN, JENIS_PERBAIKAN, STATUS, PJ_MEKANIK, NOPOL, JENIS_PENGGANTIAN, from_date, to_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +70,7 @@ class Perbaikan extends CActiveRecord
 			'ID_KENDARAAN' => 'Id Kendaraan',
 			'TGL_PERBAIKAN' => 'Tgl Perbaikan',
 			'KERUSAKAN' => 'Kerusakan',
+			'JENIS_PENGGANTIAN' => 'Jenis Penggantian',
 			'ESTIMASI_WAKTU_PERBAIKAN' => 'Estimasi Waktu Perbaikan',
 		);
 	}
@@ -114,9 +116,16 @@ class Perbaikan extends CActiveRecord
 		$criteria->with = array('iDKENDARAAN');
 		$criteria->compare('iDKENDARAAN.NOPOL',$this->NOPOL, true);
 		$criteria->compare('JENIS_PERBAIKAN',$this->JENIS_PERBAIKAN);
+		$criteria->compare('JENIS_PENGGANTIAN',$this->JENIS_PENGGANTIAN);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+            		'defaultOrder'=>'TGL_PERBAIKAN DESC',
+            		),
+			'pagination'=> array(
+				'pageSize'=>'10'
+				),
 		));
 	}
 

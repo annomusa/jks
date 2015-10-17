@@ -48,6 +48,7 @@
 	<!-- Navigation -->
 	<!-- <aside class="left-panel"> -->
 	<div id="wrapper">
+<<<<<<< HEAD
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
@@ -64,6 +65,22 @@
 		    <ul class="nav navbar-right top-nav">
 		        
 		        <li class="dropdown">
+=======
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.php?r=site/index">SITRUK</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+>>>>>>> 7627887c5f1ed4da6e042042c5b105e1e1c157d3
 		            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo Yii::app()->user->name; ?> <b class="caret"></b></a>
 		            <ul class="dropdown-menu">
 		                <li>
@@ -100,6 +117,7 @@
 		                    <li>
 	            			<?php echo CHtml::link('Rekap Pengadaan Spare Part',array('/pengadaan/admin')); ?>
 	            			</li>
+<<<<<<< HEAD
 		                </ul>
 		            </li>
 
@@ -153,6 +171,64 @@
 		    </div>
 		    <!-- /.navbar-collapse -->
 		</nav>
+=======
+		                	</ul>
+		            	</li>
+                        <li>
+                        	<a href="#"><i class="glyphicon glyphicon-paste"></i>   Pemeliharaan<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+			                    <li>
+		            			<?php echo CHtml::link('Buat perbaikan baru',array('/perbaikan/create')); ?>
+		            			</li>
+			                    <li>
+		            			<?php echo CHtml::link('Rekap perbaikan',array('/perbaikan/admin')); ?>
+		            			</li>
+		                	</ul>
+		            	</li>
+                        <li>
+                        	<a href="#"><i class="glyphicon glyphicon-list-alt"></i>   Data<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+			                    <li>
+		            			<?php echo CHtml::link('Data Karyawan',array('/karyawan/index')); ?>
+		            			</li>
+		            			<li>
+		            			<?php echo CHtml::link('Data Administrator',array('/admin/index')); ?>
+			            		</li>
+			            		<li>
+		            			<?php echo CHtml::link('Data Ban',array('/ban/admin')); ?>
+			            		</li>
+			            		<li>
+		            			<?php echo CHtml::link('Data Satuan',array('/satuan/index')); ?>
+			            		</li>
+			            		<li>
+		            			<?php echo CHtml::link('Data Sparepart',array('/sparepart/index')); ?>
+			            		</li>
+			            		<li>
+		            			<?php echo CHtml::link('Data Kendaraan',array('/kendaraan/index')); ?>
+			            		</li>
+			            		<li>
+		            			<?php echo CHtml::link('Data Ongkos',array('/ongkos/index')); ?>
+			            		</li>
+			            		<li>
+		            			<?php echo CHtml::link('Data Penerbit',array('/penerbit/index')); ?>
+			            		</li>
+							</ul>
+			            </li>
+
+			            <li>
+			            	<a href="#"><i class="glyphicon glyphicon-file"></i>   Laporan<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+		                		<li><a href="#">Ban</a></li>
+							</ul>
+			            </li>
+                        
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+>>>>>>> 7627887c5f1ed4da6e042042c5b105e1e1c157d3
 		
 
 		<div id="page-wrapper">

@@ -32,7 +32,7 @@ class OngkosController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create', 'create2', 'create3', 'create4','update', 'update2','insert'),
+				'actions'=>array('create', 'create2', 'create3', 'create4','update', 'update2', 'update3','insert', 'insert2'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -179,6 +179,25 @@ class OngkosController extends Controller
 		));
 	}
 
+	public function actionUpdate3($id, $perj)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Ongkos']))
+		{
+			$model->attributes=$_POST['Ongkos'];
+			if($model->save())
+				$this->redirect(array('perjalanan/create3','id'=>$perj));
+		}
+
+		$this->render('update2',array(
+			'model'=>$model,
+		));
+	}
+
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -221,6 +240,36 @@ class OngkosController extends Controller
 
 
 		$this->redirect(array('perjalanan/create2','id'=>$perj));
+	}
+
+	public function actionInsert2($id, $perj)
+	{
+		$isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_po')->where('ID_PERJALANAN=:ID_PERJALANAN AND ID_ONGKOS=:ID_ONGKOS',array(':ID_PERJALANAN'=>$perj, ':ID_ONGKOS'=>$id))->queryScalar();
+		$idrel = Yii::app()->db->createCommand()->select('ID_RELASI_PO')->from('relasi_po')->where('ID_PERJALANAN=:ID_PERJALANAN AND ID_ONGKOS=:ID_ONGKOS',array(':ID_PERJALANAN'=>$perj, ':ID_ONGKOS'=>$id))->queryScalar();
+		$ritase = Yii::app()->db->createCommand()->select('TAMBAHAN')->from('perjalanan')->where('ID_PERJALANAN=:ID_PERJALANAN',array(':ID_PERJALANAN'=>$perj))->queryScalar();
+		if($isi==0)
+		{
+			Yii::app()->db->createCommand()->insert('relasi_po',array('ID_PERJALANAN'=>$perj, 'ID_ONGKOS'=>$id));
+			$harga = Yii::app()->db->createCommand()->select('HARGA')->from('ongkos')->where('ID_ONGKOS=:ID_ONGKOS',array(':ID_ONGKOS'=>$id))->queryScalar();
+			if($ritase==NULL)
+			{
+				$ritase = $harga;
+			}
+			else if($ritase!=NULL)
+			{
+				$ritase = $ritase+$harga;
+			}
+		}
+		else if($isi>0)
+		{
+			RelasiPo::model()->updateByPk($idrel,array('ID_PERJALANAN'=>$perj, 'ID_ONGKOS'=>$id));
+		}
+
+		Perjalanan::model()->updateByPk($perj,array("TAMBAHAN"=>$ritase));
+
+
+
+		$this->redirect(array('perjalanan/create3','id'=>$perj));
 	}
 
 	/**

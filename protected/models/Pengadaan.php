@@ -104,6 +104,12 @@ class Pengadaan extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+            		'defaultOrder'=>'TGL_PENGADAAN DESC',
+            		),
+			'pagination'=> array(
+				'pageSize'=>'10'
+				),
 		));
 	}
 
@@ -139,6 +145,12 @@ class Pengadaan extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+            		'defaultOrder'=>'TGL_PENGADAAN DESC',
+            		),
+			'pagination'=> array(
+				'pageSize'=>'10'
+				),
 		));
 	}
 

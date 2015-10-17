@@ -45,12 +45,12 @@ class Perjalanan extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID_PENERBIT, ID_KENDARAAN, TGL_PERJALANAN, NO_SURAT_PO', 'required'),
-			array('ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, RITASE, TITIPAN_AWAL, LEBIH, KURANG, AKHIR', 'numerical', 'integerOnly'=>true),
+			array('ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, RITASE, TITIPAN_AWAL, TAMBAHAN, SISA, UANG_DIBERIKAN, UANG_DIBAWA', 'numerical', 'integerOnly'=>true),
 			array('NO_SURAT_PO, JENIS_PERINTAH', 'length', 'max'=>20),
 			array('STATUS', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_PERJALANAN, ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, TGL_PERJALANAN, NO_SURAT_PO, JENIS_PERINTAH,from_date, to_date, RITASE, TITIPAN_AWAL, LEBIH, KURANG, AKHIR, STATUS', 'safe', 'on'=>'search'),
+			array('ID_PERJALANAN, ID_PENERBIT, ID_ONGKOS, ID_KENDARAAN, TGL_PERJALANAN, NO_SURAT_PO, JENIS_PERINTAH,from_date, to_date, RITASE, TITIPAN_AWAL, TAMBAHAN, SISA, UANG_DIBERIKAN, UANG_DIBAWA, STATUS', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,9 +83,10 @@ class Perjalanan extends CActiveRecord
 			'JENIS_PERINTAH' => 'Jenis Perintah',
 			'RITASE' => 'Ritase',
 			'TITIPAN_AWAL' => 'Titipan Awal',
-			'LEBIH' => 'Lebih',
-			'KURANG' => 'Kurang',
-			'AKHIR' => 'Akhir',
+			'TAMBAHAN' => 'Tambahan',
+			'SISA' => 'Sisa',
+			'UANG_DIBERIKAN' => 'Uang Diberikan',
+			'UANG_DIBAWA' => 'Uang Dibawa',
 		);
 	}
 
@@ -116,12 +117,19 @@ class Perjalanan extends CActiveRecord
 		$criteria->compare('JENIS_PERINTAH',$this->JENIS_PERINTAH,true);
 		$criteria->compare('RITASE',$this->RITASE,true);
 		$criteria->compare('TITIPAN_AWAL',$this->TITIPAN_AWAL);
-		$criteria->compare('LEBIH',$this->LEBIH);
-		$criteria->compare('KURANG',$this->KURANG);
-		$criteria->compare('AKHIR',$this->AKHIR);
+		$criteria->compare('TAMBAHAN',$this->TAMBAHAN);
+		$criteria->compare('SISA',$this->SISA);
+		$criteria->compare('UANG_DIBERIKAN',$this->UANG_DIBERIKAN);
+		$criteria->compare('UANG_DIBAWA',$this->UANG_DIBAWA);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+            		'defaultOrder'=>'TGL_PERJALANAN DESC',
+            		),
+			'pagination'=> array(
+				'pageSize'=>'10'
+				),
 		));
 	}
 
@@ -157,6 +165,12 @@ class Perjalanan extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+            		'defaultOrder'=>'TGL_PERJALANAN DESC',
+            		),
+			'pagination'=> array(
+				'pageSize'=>'10'
+				),
 		));
 	}
 
@@ -310,5 +324,59 @@ class Perjalanan extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function hitungtotalawal($records)
+	{
+		$jumlah = 0;
+		foreach ($records as $rekam_data) {
+			$jumlah += $rekam_data->TITIPAN_AWAL;
+		}
+		return $jumlah;
+	}
+
+	public function hitungtotalritase($records)
+	{
+		$jumlah = 0;
+		foreach ($records as $rekam_data) {
+			$jumlah += $rekam_data->RITASE;
+		}
+		return $jumlah;
+	}
+
+	public function hitungtotaltambahan($records)
+	{
+		$jumlah = 0;
+		foreach ($records as $rekam_data) {
+			$jumlah += $rekam_data->TAMBAHAN;
+		}
+		return $jumlah;
+	}
+
+	public function hitungtotalsisa($records)
+	{
+		$jumlah = 0;
+		foreach ($records as $rekam_data) {
+			$jumlah += $rekam_data->SISA;
+		}
+		return $jumlah;
+	}
+
+	public function hitungtotalberi($records)
+	{
+		$jumlah = 0;
+		foreach ($records as $rekam_data) {
+			$jumlah += $rekam_data->UANG_DIBERIKAN;
+		}
+		return $jumlah;
+	}
+
+	public function hitungtotalbawa($records)
+	{
+		$jumlah = 0;
+		foreach ($records as $rekam_data) {
+			$jumlah += $rekam_data->UANG_DIBAWA;
+		}
+		return $jumlah;
 	}
 }

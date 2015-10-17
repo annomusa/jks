@@ -39,7 +39,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 			'value'=>'$data->ALAMAT'
 			),
 		array(
-			'class'=>'CButtonColumn'
+			'class'=>'CButtonColumn',
+			'template'=>'{update}{delete}',
 			),
 	),
 ));

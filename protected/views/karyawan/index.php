@@ -19,7 +19,6 @@ $this->menu=array(
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'ID_KARYAWAN',
 		'NAMA',
 		'NO_HP',
 		'ALAMAT',
@@ -30,6 +29,7 @@ $this->menu=array(
 		*/
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{update}{delete}',
 		),
 	),
 )); ?>

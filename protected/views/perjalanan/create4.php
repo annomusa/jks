@@ -2,11 +2,6 @@
 /* @var $this PerjalananController */
 /* @var $model Perjalanan */
 
-$this->breadcrumbs=array(
-	'Perjalanans'=>array('index'),
-	'Create',
-);
-
 ?>
 
 <?php
@@ -24,13 +19,10 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-<h1>Buat PO Perjalanan Baru - Step 3 : Pengisian Titipan Awal dan Tambahan - <?php echo $model->iDKENDARAAN->NOPOL; ?></h1>
+<h1>Buat PO Perjalanan Baru - Step 4 : Finalisasi Proses PO - <?php echo $model->iDKENDARAAN->NOPOL; ?></h1>
 
 <?php
-	$this->renderPartial('/ongkos/create4', array('model'=>Ongkos::model(), "id"=>$model->ID_PERJALANAN));
-?>
-<?php
-	$this->renderPartial('/relasi_po/view2', array('model'=>RelasiPo::model(), "id"=>$model->ID_PERJALANAN));
+	$this->renderPartial('/relasi_po/view3', array('model'=>RelasiPo::model(), "id"=>$model->ID_PERJALANAN));
 ?>
 <div class="form">
 
@@ -45,7 +37,7 @@ $('.search-form form').submit(function(){
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Kolom Titipan awal harus diisi</p>
+	<p class="note">Kolom dengan tanda <span class="required">*</span> harus diisi.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -63,18 +55,30 @@ $('.search-form form').submit(function(){
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'TITIPAN_AWAL'); ?>
-		<?php echo $form->textField($model,'TITIPAN_AWAL',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->textField($model,'TITIPAN_AWAL',array('size'=>25,'maxlength'=>25, 'readonly'=>true)); ?>
 		<?php echo $form->error($model,'TITIPAN_AWAL'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'SISA'); ?>
+		<?php echo $form->textField($model,'SISA',array('size'=>25,'maxlength'=>25, 'readonly'=>true)); ?>
+		<?php echo $form->error($model,'SISA'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'UANG_DIBERIKAN'); ?>
+		<?php echo $form->textField($model,'UANG_DIBERIKAN',array('size'=>25,'maxlength'=>25)); ?>
+		<?php echo $form->error($model,'UANG_DIBERIKAN'); ?>
+	</div>
+
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("id"=>$model->ID_PERJALANAN)); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 
 <p>
 <?php 
-echo TbHtml::submitButton('Kembali', array('submit'=> array("create2","id"=>$model->ID_PERJALANAN),'color' => TbHtml::BUTTON_COLOR_PRIMARY));
+echo TbHtml::submitButton('Kembali', array('submit'=> array("create3","id"=>$model->ID_PERJALANAN),'color' => TbHtml::BUTTON_COLOR_PRIMARY));
 ?>
 </p>

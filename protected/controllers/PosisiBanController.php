@@ -1,6 +1,6 @@
 <?php
 
-class Relasi_poController extends Controller
+class PosisiBanController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -32,7 +32,7 @@ class Relasi_poController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','batal', 'batal2','view2', 'view3'),
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -56,36 +56,22 @@ class Relasi_poController extends Controller
 		));
 	}
 
-	public function actionView2($id)
-	{
-		$this->render('view2',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	public function actionView3($id)
-	{
-		$this->render('view3',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
 	{
-		$model=new RelasiPo;
+		$model=new PosisiBan;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['RelasiPo']))
+		if(isset($_POST['PosisiBan']))
 		{
-			$model->attributes=$_POST['RelasiPo'];
+			$model->attributes=$_POST['PosisiBan'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID_RELASI_PO));
+				$this->redirect(array('view','id'=>$model->ID_POSISI));
 		}
 
 		$this->render('create',array(
@@ -105,11 +91,11 @@ class Relasi_poController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['RelasiPo']))
+		if(isset($_POST['PosisiBan']))
 		{
-			$model->attributes=$_POST['RelasiPo'];
+			$model->attributes=$_POST['PosisiBan'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->ID_RELASI_PO));
+				$this->redirect(array('view','id'=>$model->ID_POSISI));
 		}
 
 		$this->render('update',array(
@@ -131,42 +117,12 @@ class Relasi_poController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	public function actionBatal($id, $perj)
-	{
-		$models = Perjalanan::model()->findByPk($perj);
-		$model=$this->loadModel($id); 
-		$ritasebaru = $models->RITASE - $model->iDONGKOS->HARGA;
-
-		Perjalanan::model()->updateByPk($perj,array("RITASE"=>$ritasebaru));
-
-		$this->loadModel($id)->delete();
-
-		$this->redirect(array('perjalanan/create2','id'=>$perj));
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		
-	}
-
-	public function actionBatal2($id, $perj)
-	{
-		$models = Perjalanan::model()->findByPk($perj);
-		$model=$this->loadModel($id); 
-		$ritasebaru = $models->TAMBAHAN - $model->iDONGKOS->HARGA;
-
-		Perjalanan::model()->updateByPk($perj,array("TAMBAHAN"=>$ritasebaru));
-
-		$this->loadModel($id)->delete();
-
-		$this->redirect(array('perjalanan/create3','id'=>$perj));
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		
-	}
-
 	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('RelasiPo');
+		$dataProvider=new CActiveDataProvider('PosisiBan');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -177,10 +133,10 @@ class Relasi_poController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new RelasiPo('search');
+		$model=new PosisiBan('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['RelasiPo']))
-			$model->attributes=$_GET['RelasiPo'];
+		if(isset($_GET['PosisiBan']))
+			$model->attributes=$_GET['PosisiBan'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -191,12 +147,12 @@ class Relasi_poController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return RelasiPo the loaded model
+	 * @return PosisiBan the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=RelasiPo::model()->findByPk($id);
+		$model=PosisiBan::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -204,11 +160,11 @@ class Relasi_poController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param RelasiPo $model the model to be validated
+	 * @param PosisiBan $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='relasi-po-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='posisi-ban-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

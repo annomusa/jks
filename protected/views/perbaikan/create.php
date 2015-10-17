@@ -11,6 +11,13 @@ $this->menu=array(
 	//array('label'=>'List Perbaikan', 'url'=>array('index')),
 	//array('label'=>'Manage Perbaikan', 'url'=>array('admin')),
 );
+
+Yii::app()->clientScript->registerScript('search', "
+$('.pilih_menu').click(function(){
+	$('.ganti').toggle();
+	return false;
+});
+");
 ?>
 
 <h1>Buat Perbaikan Baru</h1>
@@ -61,11 +68,33 @@ $this->menu=array(
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'Pilih Jenis Perbaikan'); ?>
+		<?php echo $form->labelEx($model,'Jenis Perbaikan'); ?>
 		<?php 
 		$data = array('0'=>'Perbaikan','1'=>'Penggantian','2'=>'Perbaikan & Penggantian');
-        echo $form->dropDownList($model,'JENIS_PERBAIKAN', $data); ?>
+        echo $form->dropDownList($model,'JENIS_PERBAIKAN', $data, array('empty'=>'- Pilih Jenis Perbaikan -',
+        'class'=>'pilih_menu',
+        'onchange'=>"
+        	var selected = $('.pilih_menu option:selected').val();
+        	if (selected == 1 || selected == 2)
+        	{
+        		$('.ganti').hide();
+        	}
+        	else if (selected == 0)
+        	{
+        		$('.ganti').show();
+        	}
+    	"
+        )); ?>
 		<?php echo $form->error($model,'JENIS_PERBAIKAN'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'Penggantian', array('class'=>'ganti', 'style'=>"display:none")); ?>
+		<?php 
+		$data = array('0'=>'Ganti Sparepart','1'=>'Ganti Ban');
+        echo $form->dropDownList($model,'JENIS_PENGGANTIAN', $data, array('empty'=>'- Pilih Jenis Penggantian -',
+        'class'=>'ganti', 'style'=>"display:none")); ?>
+		<?php echo $form->error($model,'JENIS_PENGGANTIAN'); ?>
 	</div>
 
 	<div class="row buttons">

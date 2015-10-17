@@ -81,7 +81,24 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 				'name'=>'Status', 'value'=>'$data->STATUS'
 				),
 			array(
-				'name'=>'PJ Mekanik', 'value'=>'$data->pJMEKANIK->NAMA'
+<<<<<<< .mine
+				'name'=>'PJ Mekanik', 'value'=>function($data,$row)
+				{
+					if($data->pJMEKANIK==NULL)
+					{
+						return "";
+					}
+					else return $data->pJMEKANIK->NAMA;
+				}
+=======
+				'name'=>'PJ Mekanik', 'value'=>function($data, $row)
+				{
+					if($data->pJMEKANIK==NULL)
+						return "";
+					else
+						return $data->pJMEKANIK->NAMA;
+				}
+>>>>>>> .r34
 				),
 			array(
 				'name'=>'Aksi', 'type'=>'raw', 'value'=>function($data, $row)
@@ -94,9 +111,22 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 					{
 						return TbHtml::link("Ganti Sparepart", array("view", "id"=>$data->ID_PERBAIKAN),array('style' => 'font-weight:900;text-decoration:none;'));
 					}
+					else if($data->STATUS=="Ganti Ban")
+					{
+						return TbHtml::link("Ganti Ban", array("ban/index", "id"=>$data->ID_PERBAIKAN),array('style' => 'font-weight:900;text-decoration:none;'));
+					}
 					else if($data->STATUS=="Ke Mekanik dan Ganti Sparepart")
 					{
 						return TbHtml::link("Ke Mekanik dan Ganti Sparepart", array("view", "id"=>$data->ID_PERBAIKAN),array('style' => 'font-weight:900;text-decoration:none;'));
+					}
+					
+					else if($data->STATUS=="SELESAI")
+					{
+						$id_rpb = Yii::app()->db->createCommand()->select('ID_RELASI_PB')
+		                    ->from('relasi_pb')
+		                    ->where('ID_PERBAIKAN=:ID_PERBAIKAN', array(':ID_PERBAIKAN'=>$data->ID_PERBAIKAN))
+		                    ->queryScalar();
+						return TbHtml::link("Lihat Detail", array("/relasiPb/admin", "id"=>$data->ID_PERBAIKAN),array('style' => 'font-weight:900;text-decoration:none;'));
 					}
 				}
 				),

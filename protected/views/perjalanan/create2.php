@@ -1,17 +1,4 @@
-<?php
-/* @var $this PerjalananController */
-/* @var $model Perjalanan */
 
-$this->breadcrumbs=array(
-	'Perjalanans'=>array('index'),
-	'Create',
-);
-
-// $this->menu=array(
-// 	array('label'=>'List Perjalanan', 'url'=>array('index')),
-// 	array('label'=>'Manage Perjalanan', 'url'=>array('admin')),
-// );
-?>
 
 <?php
 
@@ -28,7 +15,7 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-<h1>Buat PO Perjalanan Baru - Step 2 : Pilih Tujuan / Ongkos Perjalanan</h1>
+<h1>Buat PO Perjalanan Baru - Step 2 : Pilih Tujuan / Ongkos Perjalanan - <?php echo $model->iDKENDARAAN->NOPOL; ?></h1>
 
 
 <!-- </div>form -->
@@ -42,7 +29,6 @@ $('.search-form form').submit(function(){
 <?php 
 $isi = Yii::app()->db->createCommand()->select('COUNT(*)')->from('relasi_po')->where('ID_PERJALANAN=:ID_PERJALANAN',array(':ID_PERJALANAN'=>"$model->ID_PERJALANAN"))->queryScalar();
 
-
 if($isi!=0)
 {
 	echo "Sudah selesai?";
@@ -51,3 +37,8 @@ if($isi!=0)
 }
 
 ?>
+<p>
+<?php 
+echo TbHtml::submitButton('Kembali', array('submit'=> array("create1","id"=>$model->ID_PERJALANAN),'color' => TbHtml::BUTTON_COLOR_PRIMARY));
+?>
+</p>

@@ -32,7 +32,7 @@ class PerjalananController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','create2', 'lanjut','create3','update','Pilihpenerbit','admin', 'cetaklaporan', 'cetakexcel'),
+				'actions'=>array('create','create1','create2', 'lanjut','create3','create4','update','Pilihpenerbit','admin', 'cetaklaporan', 'cetakexcel'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -80,6 +80,27 @@ class PerjalananController extends Controller
 		));
 	}
 
+	public function actionCreate1($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Perjalanan']))
+		{
+			$model->attributes=$_POST['Perjalanan'];
+			if($model->save())
+			{
+				$this->redirect(array('create2','id'=>$model->ID_PERJALANAN));
+			}
+				
+		}
+		$this->render('create1',array(
+			'model'=>$model,
+		));
+	}
+
 	public function actionCreate2($id)
 	{
 		$model=$this->loadModel($id);
@@ -118,12 +139,51 @@ class PerjalananController extends Controller
 		if(isset($_POST['Perjalanan']))
 		{
 			$model->attributes=$_POST['Perjalanan'];
-			Perjalanan::model()->updateByPk($id,array("STATUS"=>"SELESAI"));
+			if($model->TITIPAN_AWAL!=NULL)
+			{
+				$sisa = $model->TITIPAN_AWAL - ($model->RITASE + $model->TAMBAHAN);
+			}
 			if($model->save())
-				$this->redirect(array('admin'));
+			{
+				if($model->TITIPAN_AWAL==NULL)
+				{
+					$this->redirect(array('create3','id'=>$model->ID_PERJALANAN));
+				}
+				else
+				{
+					Perjalanan::model()->updateByPk($id,array("STATUS"=>"TAMBAHAN DAN UANG AWAL TERISI", "SISA"=>$sisa));
+					$this->redirect(array('create4','id'=>$model->ID_PERJALANAN));
+				}
+				
+			}
+				
 		}
 
 		$this->render('create3',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionCreate4($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Perjalanan']))
+		{
+			$model->attributes=$_POST['Perjalanan'];
+			$uangbawa = $model->SISA + $model->UANG_DIBERIKAN;
+			if($model->save())
+			{
+				Perjalanan::model()->updateByPk($id,array("STATUS"=>"SELESAI", "UANG_DIBAWA"=>$uangbawa));
+				$this->redirect(array('admin'));
+			}
+				
+		}
+
+		$this->render('create4',array(
 			'model'=>$model,
 		));
 	}

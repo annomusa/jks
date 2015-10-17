@@ -19,7 +19,8 @@ $this->menu=array(
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'ID_ONGKOS',
+		'TUJUAN',
+		'HARGA',
 		array(
 			'header'=>'Satuan', 'value'=>'$data->iDSATUAN->SATUAN'
 		),
@@ -33,10 +34,9 @@ $this->menu=array(
 					else return 'TAMBAHAN';
 				}
 		),
-		'TUJUAN',
-		'HARGA',
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{update}{delete}',
 		),
 	),
 )); ?>
